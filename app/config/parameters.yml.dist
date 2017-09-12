@@ -14,7 +14,7 @@ parameters:
     mailer_host:        mailcatcher
     mailer_port:        1025
     mailer_encryption:  null
-    mailer_user:        null
+    mailer_user:        no-reply@rapier.loc
     mailer_password:    null
 
     # A secret key that's used to generate certain security-related tokens
