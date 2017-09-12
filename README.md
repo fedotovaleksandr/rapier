@@ -1,4 +1,4 @@
-# Rapier
+# Rapier [![Build Status](https://travis-ci.org/fedotovaleksandr/rapier.svg?branch=master)](https://travis-ci.org/fedotovaleksandr/rapier)
 
 ## How to install and run Rapier
 
