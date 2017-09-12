@@ -1,0 +1,33 @@
+{
+  "name": "rapier",
+  "description": "A Symfony skeleton application with user account functionality based on the Twitter Bootstrap and rapier template.",
+  "repository": "https://github.com/fedotovaleksandr/rapier",
+  "logo": "https://raw.githubusercontent.com/fedotovaleksandr/rapier/master/web/assets/images/img.jpg",
+  "keywords": ["symfony","rapier","template","bootstrap","admin"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/php"
+    }
+  ],
+  "env": {
+    "SYMFONY_ENV": {
+      "description": "Symfony run enviroment name",
+      "value": "prod"
+    },
+    "USER_NAME": {
+      "description": "User name",
+      "value": "admin"
+    },
+    "USER_PASSWORD": {
+      "description": "User password",
+      "generator": "secret"
+    },
+    "USER_EMAIL": {
+      "description": "User e-mail",
+      "value": ""
+    }
+  }
+}
