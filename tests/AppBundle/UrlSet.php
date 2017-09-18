@@ -1,15 +1,13 @@
 <?php
 
-
 namespace AppBundle\Test;
-
 
 final class UrlSet
 {
-    static function getUrls()
+    public static function getUrls()
     {
         return [
-            '/'
+            '/',
         ];
     }
 }

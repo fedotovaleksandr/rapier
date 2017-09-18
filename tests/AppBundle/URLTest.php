@@ -9,7 +9,6 @@ namespace AppBundle\Test;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-
 /**
  * Tests for dead links.
  */

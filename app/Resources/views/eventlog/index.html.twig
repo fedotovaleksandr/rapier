@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Eventlogs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Startdate</th>
+                <th>Action</th>
+                <th>Interval</th>
+                <th>Oldstatus</th>
+                <th>Newstatus</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for eventLog in eventLogs %}
+            <tr>
+                <td><a href="{{ path('eventlog_show', { 'id': eventLog.id }) }}">{{ eventLog.id }}</a></td>
+                <td>{{ eventLog.title }}</td>
+                <td>{{ eventLog.description }}</td>
+                <td>{% if eventLog.startDate %}{{ eventLog.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ eventLog.action }}</td>
+                <td>{{ eventLog.interval }}</td>
+                <td>{{ eventLog.oldStatus }}</td>
+                <td>{{ eventLog.newStatus }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('eventlog_show', { 'id': eventLog.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

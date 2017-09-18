@@ -1,13 +1,13 @@
 <?php
 
-
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Employee
+ * Class Employee.
+ *
  * @ORM\Entity
  */
 class Employee
@@ -32,7 +32,7 @@ class Employee
     protected $firstName;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $gender;
@@ -50,7 +50,7 @@ class Employee
     protected $phone;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $workMode;
@@ -97,7 +97,6 @@ class Employee
         $this->events = new ArrayCollection();
         $this->roles = new ArrayCollection();
     }
-
 
     /**
      * @return mixed

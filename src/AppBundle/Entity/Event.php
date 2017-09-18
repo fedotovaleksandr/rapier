@@ -1,13 +1,13 @@
 <?php
 
-
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Event
+ * Class Event.
+ *
  * @ORM\Entity
  */
 class Event
@@ -44,13 +44,13 @@ class Event
     protected $interval;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $importance;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $status;
@@ -68,7 +68,6 @@ class Event
      * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
      */
     protected $schedule;
-
 
     /**
      * @var EventLog[]
@@ -262,6 +261,4 @@ class Event
     {
         $this->employeeDays = $employeeDays;
     }
-
-
 }

@@ -2,13 +2,12 @@
 
 namespace AppBundle\Test;
 
-
 use AppKernel;
 use Symfony\Component\HttpKernel\Client;
 
 class TestClient
 {
-    /** @var  Client */
+    /** @var Client */
     private static $client;
     private $username;
     private $password;
@@ -27,7 +26,7 @@ class TestClient
 
     public function auth()
     {
-        if (self::$client == null) {
+        if (null == self::$client) {
             self::$client = $this->client();
         }
 

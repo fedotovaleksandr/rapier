@@ -1,17 +1,16 @@
 <?php
 
-
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class EventLog
+ * Class EventLog.
+ *
  * @ORM\Entity
  */
 class EventLog
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -38,7 +37,7 @@ class EventLog
     protected $startDate;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $action;
@@ -50,13 +49,13 @@ class EventLog
     protected $interval;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $oldStatus;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(type="smallint")
      */
     protected $newStatus;

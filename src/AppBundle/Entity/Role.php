@@ -1,13 +1,13 @@
 <?php
 
-
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Role
+ * Class Role.
+ *
  * @ORM\Entity
  */
 class Role
@@ -100,5 +100,4 @@ class Role
     {
         $this->employees = $employees;
     }
-
 }

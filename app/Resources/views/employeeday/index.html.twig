@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Employeedays list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Startdate</th>
+                <th>Enddate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for employeeDay in employeeDays %}
+            <tr>
+                <td><a href="{{ path('employeeday_show', { 'day': employeeDay.day }) }}">{{ employeeDay.day }}</a></td>
+                <td>{% if employeeDay.startDate %}{{ employeeDay.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if employeeDay.endDate %}{{ employeeDay.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('employeeday_show', { 'day': employeeDay.day }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('employeeday_edit', { 'day': employeeDay.day }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('employeeday_new') }}">Create a new employeeDay</a>
+        </li>
+    </ul>
+{% endblock %}

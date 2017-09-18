@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Eventlog</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ eventLog.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ eventLog.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ eventLog.description }}</td>
+            </tr>
+            <tr>
+                <th>Startdate</th>
+                <td>{% if eventLog.startDate %}{{ eventLog.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Action</th>
+                <td>{{ eventLog.action }}</td>
+            </tr>
+            <tr>
+                <th>Interval</th>
+                <td>{{ eventLog.interval }}</td>
+            </tr>
+            <tr>
+                <th>Oldstatus</th>
+                <td>{{ eventLog.oldStatus }}</td>
+            </tr>
+            <tr>
+                <th>Newstatus</th>
+                <td>{{ eventLog.newStatus }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('eventlog_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

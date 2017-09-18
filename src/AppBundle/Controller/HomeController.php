@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class HomeController extends Controller
 {
-
     /**
      * @Route("/", name="app_homepage")
      *
