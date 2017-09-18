@@ -21,6 +21,13 @@ doctrine:
         user:         "%env(DEPLOY_DATABASE_USER)%"
         password:     "%env(DEPLOY_DATABASE_PASS)%"
         charset:      UTF8
+swiftmailer:
+    transport: "gmail"
+    encryption: "ssl"
+    auth_mode: "login"
+    host: 	"smtp.gmail.com"
+    username:  "%env(DEPLOY_MAIL_USER)%"
+    password:  "%env(DEPLOY_MAIL_PASS)%"
 
 monolog:
     handlers:

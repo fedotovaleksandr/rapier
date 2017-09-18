@@ -9,6 +9,16 @@ framework:
     profiler:
         collect: false
 
+doctrine:
+    dbal:
+        driver:       pdo_pgsql
+        host:         "%env(TEST_DATABASE_HOST)%"
+        port:         "5432"
+        dbname:       "%env(TEST_DATABASE_NAME)%"
+        user:         "%env(TEST_DATABASE_USER)%"
+        password:     ~
+        charset:      UTF8
+
 web_profiler:
     toolbar: false
     intercept_redirects: false

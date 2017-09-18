@@ -12,4 +12,7 @@ docker-compose exec php php bin/console doctrine:database:create --if-not-exists
 echo "Create Schema..."
 docker-compose exec php php bin/console doctrine:schema:create --env=${environment}
 
+echo "Run migrations..."
+docker-compose exec php php bin/console d:m:m --env=${environment}
+
 echo "Done!"

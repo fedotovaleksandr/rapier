@@ -25,8 +25,8 @@
     <div class="main_container">
 
 
-        {% include 'app/sidebar.html.twig' %}
-        {% include 'app/topnav.html.twig' %}
+        {% include 'sidebar.html.twig' %}
+        {% include 'topnav.html.twig' %}
 
 
         <!-- page content -->
@@ -54,7 +54,7 @@
                 <div class="clearfix"></div>
 
 
-                {% block page_content %}{% endblock %}
+                {% block body %}{% endblock %}
 
 
             </div>
@@ -62,7 +62,7 @@
         <!-- /page content -->
 
 
-        {% include 'app/footer.html.twig' %}
+        {% include 'footer.html.twig' %}
 
 
     </div>

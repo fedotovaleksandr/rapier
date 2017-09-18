@@ -5,11 +5,10 @@
  * that was distributed with this source code.
  */
 
-namespace AppBundle;
+namespace AppBundle\Test;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-require_once 'Pages.php';
 
 /**
  * Tests for dead links.
@@ -24,9 +23,9 @@ class URLTest extends WebTestCase
      *
      * @param string $url Relative page url
      */
-    public function testResponseOK($url)
+    public function testResponseOK(string $url)
     {
-        $client = (new \TestClient('test', 'test'))->auth();
+        $client = (new TestClient('test', 'test'))->auth();
         $client->request('GET', $url);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -34,10 +33,8 @@ class URLTest extends WebTestCase
     /**
      * @return array
      */
-    public function provideUrl()
+    public function provideUrl(): array
     {
-        return [
-            ['/']
-        ];
+        return [UrlSet::getUrls()];
     }
 }

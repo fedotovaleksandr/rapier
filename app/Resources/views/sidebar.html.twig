@@ -27,18 +27,34 @@
                 <ul class="nav side-menu">
                     <li><a href="{{ path('app_dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
                 </ul>
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('employee_index') }}"><i class="fa fa-user"></i> Employee</a></li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('event_index') }}"><i class="fa fa-hand-spock-o"></i> Event</a></li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('employeeday_index') }}"><i class="fa fa-calendar"></i> EmployeeDay</a></li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('schedule_index') }}"><i class="fa fa-list"></i> Schedule</a></li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('role_index') }}"><i class="fa fa-user-plus"></i>Employee Role</a></li>
+                </ul>
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('eventlog_index') }}"><i class="fa fa-list-ol"></i>Event Log</a></li>
+                </ul>
             </div>
 
             <div class="menu_section">
                 <h3>Developer</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a><i class="fa fa-book"></i> Documentation <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a class="symfony-docs" href="http://symfony.com/doc/current/index.html">Symfony</a></li>
-                        </ul>
-                    </li> 
-                    <li><a href="#"><i class="fa fa-search"></i> Template</a></li>
+                        <a href="http://symfony.com/doc/current/index.html">
+                            <i class="fa fa-book"></i>Symfony Documentation
+                        </a>
+                    </li>
                 </ul>                    
             </div>
             

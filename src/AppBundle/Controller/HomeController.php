@@ -27,6 +27,18 @@ class HomeController extends Controller
      */
     public function homepageAction(Request $request)
     {
-        return $this->render('app/base.html.twig', []);
+        return $this->render('base.html.twig', []);
+    }
+
+    /**
+     * @Route("/dashboard", name="app_dashboard")
+     *
+     * @param Request $request Request
+     *
+     * @return Response
+     */
+    public function dashboardAction(Request $request)
+    {
+        return $this->render('base.html.twig', []);
     }
 }
