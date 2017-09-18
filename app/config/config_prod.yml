@@ -22,10 +22,11 @@ doctrine:
         password:     "%env(DEPLOY_DATABASE_PASS)%"
         charset:      UTF8
 swiftmailer:
-    transport: "gmail"
+    transport: "smtp"
     encryption: "ssl"
     auth_mode: "login"
     host: 	"smtp.gmail.com"
+    port: 465
     username:  "%env(DEPLOY_MAIL_USER)%"
     password:  "%env(DEPLOY_MAIL_PASS)%"
 

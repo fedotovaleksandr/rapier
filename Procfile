@@ -1,2 +1,1 @@
-web: vendor/bin/heroku-php-apache2 web/
-release: bash bin/deploy.sh
+web: bash bin/deploy.sh && vendor/bin/heroku-php-apache2 web/
