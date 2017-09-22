@@ -18,16 +18,20 @@
                 <td>{{ eventLog.description }}</td>
             </tr>
             <tr>
-                <th>Startdate</th>
-                <td>{% if eventLog.startDate %}{{ eventLog.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <th>Timeinstant</th>
+                <td>{% if eventLog.timeInstant %}{{ eventLog.timeInstant|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
                 <th>Action</th>
                 <td>{{ eventLog.action }}</td>
             </tr>
             <tr>
-                <th>Interval</th>
-                <td>{{ eventLog.interval }}</td>
+                <th>Starttime</th>
+                <td>{% if eventLog.startTime %}{{ eventLog.startTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ eventLog.duration }}</td>
             </tr>
             <tr>
                 <th>Oldstatus</th>

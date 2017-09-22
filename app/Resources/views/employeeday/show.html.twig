@@ -10,12 +10,12 @@
                 <td>{{ employeeDay.day }}</td>
             </tr>
             <tr>
-                <th>Startdate</th>
-                <td>{% if employeeDay.startDate %}{{ employeeDay.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <th>Starttime</th>
+                <td>{% if employeeDay.startTime %}{{ employeeDay.startTime|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Enddate</th>
-                <td>{% if employeeDay.endDate %}{{ employeeDay.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <th>Endtime</th>
+                <td>{% if employeeDay.endTime %}{{ employeeDay.endTime|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

@@ -13,7 +13,10 @@ class EmployeeDayType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('day')->add('startDate')->add('endDate')->add('employee')->add('events');
+        $builder->add('employee')
+            ->add('day')
+            ->add('startTime')
+            ->add('endTime');
     }
 
     /**

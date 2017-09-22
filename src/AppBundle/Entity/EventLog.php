@@ -5,8 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class EventLog.
- *
  * @ORM\Entity
  */
 class EventLog
@@ -19,22 +17,22 @@ class EventLog
     protected $id;
 
     /**
+     * @var \DateTimeInterface
+     * @ORM\Column(type="datetime")
+     */
+    protected $timeInstant;
+
+    /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     protected $title;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @var string|null
+     * @ORM\Column(type="string", length=4000, nullable=true)
      */
     protected $description;
-
-    /**
-     * @var \DateTimeInterface
-     * @ORM\Column(type="datetime")
-     */
-    protected $startDate;
 
     /**
      * @var int
@@ -43,36 +41,67 @@ class EventLog
     protected $action;
 
     /**
-     * @var \DateInterval
-     * @ORM\Column(type="dateinterval")
+     * @var \DateTimeInterface|null
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $interval;
+    protected $startTime;
 
     /**
      * @var int
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="integer")
+     */
+    protected $duration;
+
+    /**
+     * @var int|null
+     * @ORM\Column(type="smallint", nullable=true)
      */
     protected $oldStatus;
 
     /**
-     * @var int
-     * @ORM\Column(type="smallint")
+     * @var int|null
+     * @ORM\Column(type="smallint", nullable=true)
      */
     protected $newStatus;
 
     /**
+     * @var Employee
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="eventLogs")
+     * @ORM\JoinColumn(name="employee_id", nullable=false)
+     */
+    protected $employee;
+
+    /**
      * @var Event
      * @ORM\ManyToOne(targetEntity="Event", inversedBy="eventLogs")
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="event_id", nullable=false)
      */
     protected $event;
 
+    ###
+
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getTimeInstant(): ?\DateTimeInterface
+    {
+        return $this->timeInstant;
+    }
+
+    /**
+     * @param \DateTimeInterface $timeInstant
+     */
+    public function setTimeInstant(\DateTimeInterface $timeInstant)
+    {
+        $this->timeInstant = $timeInstant;
     }
 
     /**
@@ -100,9 +129,9 @@ class EventLog
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
@@ -110,17 +139,17 @@ class EventLog
     /**
      * @return \DateTimeInterface|null
      */
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return $this->startTime;
     }
 
     /**
-     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface|null $startTime
      */
-    public function setStartDate(\DateTimeInterface $startDate)
+    public function setStartTime(?\DateTimeInterface $startTime)
     {
-        $this->startDate = $startDate;
+        $this->startTime = $startTime;
     }
 
     /**
@@ -140,19 +169,19 @@ class EventLog
     }
 
     /**
-     * @return \DateInterval|null
+     * @return int|null
      */
-    public function getInterval(): ?\DateInterval
+    public function getDuration(): ?int
     {
-        return $this->interval;
+        return $this->duration;
     }
 
     /**
-     * @param \DateInterval $interval
+     * @param int $duration
      */
-    public function setInterval(\DateInterval $interval)
+    public function setDuration(int $duration)
     {
-        $this->interval = $interval;
+        $this->duration = $duration;
     }
 
     /**
@@ -164,9 +193,9 @@ class EventLog
     }
 
     /**
-     * @param int $oldStatus
+     * @param int|null $oldStatus
      */
-    public function setOldStatus(int $oldStatus)
+    public function setOldStatus(?int $oldStatus)
     {
         $this->oldStatus = $oldStatus;
     }
@@ -180,9 +209,9 @@ class EventLog
     }
 
     /**
-     * @param int $newStatus
+     * @param int|null $newStatus
      */
-    public function setNewStatus(int $newStatus)
+    public function setNewStatus(?int $newStatus)
     {
         $this->newStatus = $newStatus;
     }
@@ -201,5 +230,21 @@ class EventLog
     public function setEvent(Event $event)
     {
         $this->event = $event;
+    }
+
+    /**
+     * @return Employee|null
+     */
+    public function getEmployee(): ?Employee
+    {
+        return $this->employee;
+    }
+
+    /**
+     * @param Employee $employee
+     */
+    public function setEmployee(Employee $employee)
+    {
+        $this->employee = $employee;
     }
 }

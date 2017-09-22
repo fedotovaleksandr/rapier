@@ -6,12 +6,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class EmployeeDay.
- *
  * @ORM\Entity
  */
 class EmployeeDay
 {
+    /**
+     * @ORM\Id
+     * @var Employee
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="employeeDays")
+     * @ORM\JoinColumn(name="employee_id", nullable=false)
+     */
+    protected $employee;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="smallint")
@@ -19,53 +25,18 @@ class EmployeeDay
     protected $day;
 
     /**
-     * @var \DateTimeInterface
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface|null
+     * @ORM\Column(type="time", nullable=true)
      */
-    protected $startDate;
+    protected $startTime;
 
     /**
-     * @var \DateTimeInterface
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface|null
+     * @ORM\Column(type="time", nullable=true)
      */
-    protected $endDate;
+    protected $endTime;
 
-    /**
-     * @var Employee
-     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="employeeDays")
-     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
-     */
-    protected $employee;
-
-    /**
-     * @var Employee[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Event", mappedBy="employeeDays")
-     */
-    protected $events;
-
-    /**
-     * EmployeeDay constructor.
-     */
-    public function __construct()
-    {
-        $this->events = new ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDay()
-    {
-        return $this->day;
-    }
-
-    /**
-     * @param mixed $day
-     */
-    public function setDay($day)
-    {
-        $this->day = $day;
-    }
+    ###
 
     /**
      * @return Employee|null
@@ -76,58 +47,58 @@ class EmployeeDay
     }
 
     /**
-     * @param mixed $employee
+     * @param Employee $employee
      */
-    public function setEmployee($employee)
+    public function setEmployee(Employee $employee)
     {
         $this->employee = $employee;
     }
 
     /**
+     * @return int|null
+     */
+    public function getDay(): ?int
+    {
+        return $this->day;
+    }
+
+    /**
+     * @param int $day
+     */
+    public function setDay(int $day)
+    {
+        $this->day = $day;
+    }
+
+    /**
      * @return \DateTimeInterface|null
      */
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return $this->startTime;
     }
 
     /**
-     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface|null $startTime
      */
-    public function setStartDate(\DateTimeInterface $startDate)
+    public function setStartTime(?\DateTimeInterface $startTime)
     {
-        $this->startDate = $startDate;
+        $this->startTime = $startTime;
     }
 
     /**
      * @return \DateTimeInterface|null
      */
-    public function getEndDate(): ?\DateTimeInterface
+    public function getEndTime(): ?\DateTimeInterface
     {
-        return $this->endDate;
+        return $this->endTime;
     }
 
     /**
-     * @param \DateTimeInterface $endDate
+     * @param \DateTimeInterface|null $endTime
      */
-    public function setEndDate(\DateTimeInterface $endDate)
+    public function setEndDate(?\DateTimeInterface $endTime)
     {
-        $this->endDate = $endDate;
-    }
-
-    /**
-     * @return Employee[]|ArrayCollection
-     */
-    public function getEvents(): ArrayCollection
-    {
-        return $this->events;
-    }
-
-    /**
-     * @param Employee[]|ArrayCollection $events
-     */
-    public function setEvents($events)
-    {
-        $this->events = $events;
+        $this->endTime = $endTime;
     }
 }

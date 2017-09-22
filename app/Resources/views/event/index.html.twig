@@ -10,7 +10,7 @@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Startdate</th>
-                <th>Interval</th>
+                <th>Duration</th>
                 <th>Importance</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -23,7 +23,7 @@
                 <td>{{ event.title }}</td>
                 <td>{{ event.description }}</td>
                 <td>{% if event.startDate %}{{ event.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ event.interval }}</td>
+                <td>{{ event.duration }}</td>
                 <td>{{ event.importance }}</td>
                 <td>{{ event.status }}</td>
                 <td>

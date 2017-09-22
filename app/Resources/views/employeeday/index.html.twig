@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th>Day</th>
-                <th>Startdate</th>
-                <th>Enddate</th>
+                <th>Starttime</th>
+                <th>Endtime</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,8 +16,8 @@
         {% for employeeDay in employeeDays %}
             <tr>
                 <td><a href="{{ path('employeeday_show', { 'day': employeeDay.day }) }}">{{ employeeDay.day }}</a></td>
-                <td>{% if employeeDay.startDate %}{{ employeeDay.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if employeeDay.endDate %}{{ employeeDay.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if employeeDay.startTime %}{{ employeeDay.startTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if employeeDay.endTime %}{{ employeeDay.endTime|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>

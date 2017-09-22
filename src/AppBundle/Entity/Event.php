@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Event.
- *
  * @ORM\Entity
  */
 class Event
@@ -21,27 +19,27 @@ class Event
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     protected $title;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @var string|null
+     * @ORM\Column(type="string", length=4000, nullable=true)
      */
     protected $description;
 
     /**
-     * @var \DateTimeInterface
-     * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface|null
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $startDate;
 
     /**
-     * @var \DateInterval
-     * @ORM\Column(type="dateinterval")
+     * @var int
+     * @ORM\Column(type="integer")
      */
-    protected $interval;
+    protected $duration;
 
     /**
      * @var int
@@ -56,48 +54,50 @@ class Event
     protected $status;
 
     /**
-     * @var Employee
+     * @var Employee|null
      * @ORM\ManyToOne(targetEntity="Employee", inversedBy="events")
-     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="employee_id", nullable=true)
      */
     protected $employee;
 
     /**
      * @var Schedule
      * @ORM\ManyToOne(targetEntity="Schedule", inversedBy="events")
-     * @ORM\JoinColumn(name="schedule_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="schedule_id", nullable=false)
      */
     protected $schedule;
 
     /**
-     * @var EventLog[]
+     * @var Role
+     * @ORM\ManyToOne(targetEntity="Role", inversedBy="events")
+     * @ORM\JoinColumn(name="role_id", nullable=false)
+     */
+    protected $role;
+
+    /**
+     * @var EventDay[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="EventDay", mappedBy="event")
+     */
+    protected $eventDays;
+
+    /**
+     * @var EventLog[]|ArrayCollection
      * @ORM\OneToMany(targetEntity="EventLog", mappedBy="event")
      */
     protected $eventLogs;
 
-    /**
-     * @var EmployeeDay[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="EmployeeDay", inversedBy="events")
-     * @ORM\JoinTable(
-     *     name="employee_days_event",
-     *     inverseJoinColumns={ @ORM\JoinColumn(name="employee_day", referencedColumnName="day") }
-     * )
-     */
-    protected $employeeDays;
+    ###
 
-    /**
-     * Event constructor.
-     */
     public function __construct()
     {
+        $this->eventDays = new ArrayCollection();
         $this->eventLogs = new ArrayCollection();
-        $this->employeeDays = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -127,9 +127,9 @@ class Event
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
@@ -143,27 +143,27 @@ class Event
     }
 
     /**
-     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface|null $startDate
      */
-    public function setStartDate(\DateTimeInterface $startDate)
+    public function setStartDate(?\DateTimeInterface $startDate)
     {
         $this->startDate = $startDate;
     }
 
     /**
-     * @return \DateInterval|null
+     * @return int|null
      */
-    public function getInterval(): ?\DateInterval
+    public function getDuration(): ?int
     {
-        return $this->interval;
+        return $this->duration;
     }
 
     /**
-     * @param \DateInterval $interval
+     * @param int $duration
      */
-    public function setInterval(\DateInterval $interval)
+    public function setDuration(int $duration)
     {
-        $this->interval = $interval;
+        $this->duration = $duration;
     }
 
     /**
@@ -207,9 +207,9 @@ class Event
     }
 
     /**
-     * @param Employee $employee
+     * @param Employee|null $employee
      */
-    public function setEmployee(Employee $employee)
+    public function setEmployee(?Employee $employee)
     {
         $this->employee = $employee;
     }
@@ -231,7 +231,39 @@ class Event
     }
 
     /**
-     * @return EventLog[]|ArrayCollection
+     * @return Role|null
+     */
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function setRole(Role $role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEventDays()
+    {
+        return $this->eventDays;
+    }
+
+    /**
+     * @param iterable $eventDays
+     */
+    public function setEventDays(iterable $eventDays)
+    {
+        $this->eventDays = $eventDays;
+    }
+
+    /**
+     * @return ArrayCollection
      */
     public function getEventLogs(): ArrayCollection
     {
@@ -244,21 +276,5 @@ class Event
     public function setEventLogs(iterable $eventLogs)
     {
         $this->eventLogs = $eventLogs;
-    }
-
-    /**
-     * @return EmployeeDay[]|ArrayCollection
-     */
-    public function getEmployeeDays(): ArrayCollection
-    {
-        return $this->employeeDays;
-    }
-
-    /**
-     * @param EmployeeDay[]|ArrayCollection $employeeDays
-     */
-    public function setEmployeeDays($employeeDays)
-    {
-        $this->employeeDays = $employeeDays;
     }
 }

@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Role.
- *
  * @ORM\Entity
  */
 class Role
@@ -21,13 +19,13 @@ class Role
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     protected $title;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @var string|null
+     * @ORM\Column(type="string", length=4000, nullable=true)
      */
     protected $description;
 
@@ -38,17 +36,23 @@ class Role
     protected $employees;
 
     /**
-     * Role constructor.
+     * @var Event[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="role")
      */
+    protected $events;
+
+    ###
+
     public function __construct()
     {
         $this->employees = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -78,9 +82,9 @@ class Role
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description)
+    public function setDescription(?string $description)
     {
         $this->description = $description;
     }
@@ -99,5 +103,21 @@ class Role
     public function setEmployees(iterable $employees)
     {
         $this->employees = $employees;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEvents(): ArrayCollection
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param iterable $events
+     */
+    public function setEvents(iterable $events)
+    {
+        $this->events = $events;
     }
 }

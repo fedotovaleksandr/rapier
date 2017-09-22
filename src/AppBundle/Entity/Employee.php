@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Employee.
- *
  * @ORM\Entity
  */
 class Employee
@@ -20,14 +18,23 @@ class Employee
     protected $id;
 
     /**
+     * An employee can be (and will be at most)
+     * registered in the system himself
+     * @var User|null
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", nullable=true)
+     */
+    protected $user;
+
+    /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     protected $lastName;
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=100)
      */
     protected $firstName;
 
@@ -39,13 +46,7 @@ class Employee
 
     /**
      * @var string
-     * @ORM\Column(type="string")
-     */
-    protected $email;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=50)
      */
     protected $phone;
 
@@ -56,9 +57,9 @@ class Employee
     protected $workMode;
 
     /**
-     * @var Employee
+     * @var Employee|null
      * @ORM\ManyToOne(targetEntity="Employee", inversedBy="employees")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="manager_id", nullable=true)
      */
     protected $manager;
 
@@ -75,12 +76,6 @@ class Employee
     protected $employeeDays;
 
     /**
-     * @var Event[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Event", mappedBy="employee")
-     */
-    protected $events;
-
-    /**
      * @var Role[]|ArrayCollection
      * @ORM\ManyToMany(targetEntity="Role", inversedBy="employees")
      * @ORM\JoinTable(name="employee_role")
@@ -88,22 +83,50 @@ class Employee
     protected $roles;
 
     /**
-     * Employee constructor.
+     * @var Event[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="employee")
      */
+    protected $events;
+
+    /**
+     * @var EventLog[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="EventLog", mappedBy="employee")
+     */
+    protected $eventLogs;
+
+    ###
+
     public function __construct()
     {
         $this->employees = new ArrayCollection();
         $this->employeeDays = new ArrayCollection();
-        $this->events = new ArrayCollection();
         $this->roles = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->eventLogs = new ArrayCollection();
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     */
+    public function setUser(?User $user)
+    {
+        $this->user = $user;
     }
 
     /**
@@ -157,22 +180,6 @@ class Employee
     /**
      * @return string|null
      */
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail(string $email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -211,15 +218,15 @@ class Employee
     }
 
     /**
-     * @param Employee $manager
+     * @param Employee|null $manager
      */
-    public function setManager(Employee $manager)
+    public function setManager(?Employee $manager)
     {
         $this->manager = $manager;
     }
 
     /**
-     * @return ArrayCollection|Employee[]
+     * @return ArrayCollection
      */
     public function getEmployees(): ArrayCollection
     {
@@ -235,7 +242,7 @@ class Employee
     }
 
     /**
-     * @return ArrayCollection|EmployeeDay[]
+     * @return ArrayCollection
      */
     public function getEmployeeDays(): ArrayCollection
     {
@@ -251,7 +258,23 @@ class Employee
     }
 
     /**
-     * @return Event[]|ArrayCollection
+     * @return ArrayCollection
+     */
+    public function getRoles(): ArrayCollection
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param iterable $roles
+     */
+    public function setRoles(iterable $roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * @return ArrayCollection
      */
     public function getEvents(): ArrayCollection
     {
@@ -269,16 +292,16 @@ class Employee
     /**
      * @return ArrayCollection
      */
-    public function getRoles(): ArrayCollection
+    public function getEventLogs(): ArrayCollection
     {
-        return $this->roles;
+        return $this->eventLogs;
     }
 
     /**
-     * @param iterable $roles
+     * @param iterable $eventLogs
      */
-    public function setRoles(iterable $roles)
+    public function setEventLogs(iterable $eventLogs)
     {
-        $this->roles = $roles;
+        $this->eventLogs = $eventLogs;
     }
 }
