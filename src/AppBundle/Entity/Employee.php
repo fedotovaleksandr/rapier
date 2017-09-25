@@ -19,7 +19,8 @@ class Employee
 
     /**
      * An employee can be (and will be at most)
-     * registered in the system himself
+     * registered in the system himself.
+     *
      * @var User|null
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", nullable=true)
@@ -94,7 +95,7 @@ class Employee
      */
     protected $eventLogs;
 
-    ###
+    // *** //
 
     public function __construct()
     {

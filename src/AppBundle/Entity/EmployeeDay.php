@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 class EmployeeDay
 {
     /**
-     * @ORM\Id
      * @var Employee
+     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Employee", inversedBy="employeeDays")
      * @ORM\JoinColumn(name="employee_id", nullable=false)
      */
@@ -36,7 +35,7 @@ class EmployeeDay
      */
     protected $endTime;
 
-    ###
+    // *** //
 
     /**
      * @return Employee|null

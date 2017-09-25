@@ -78,7 +78,7 @@ class EventLog
      */
     protected $event;
 
-    ###
+    // *** //
 
     /**
      * @return int

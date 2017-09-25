@@ -47,7 +47,7 @@ class Schedule
      */
     protected $events;
 
-    ###
+    // *** //
 
     public function __construct()
     {

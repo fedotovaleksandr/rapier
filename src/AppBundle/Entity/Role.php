@@ -41,7 +41,7 @@ class Role
      */
     protected $events;
 
-    ###
+    // *** //
 
     public function __construct()
     {

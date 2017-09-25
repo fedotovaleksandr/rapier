@@ -86,7 +86,7 @@ class Event
      */
     protected $eventLogs;
 
-    ###
+    // *** //
 
     public function __construct()
     {
