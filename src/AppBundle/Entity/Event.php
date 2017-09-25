@@ -45,6 +45,12 @@ class Event
      * @var int
      * @ORM\Column(type="smallint")
      */
+    protected $period;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint")
+     */
     protected $importance;
 
     /**
@@ -164,6 +170,22 @@ class Event
     public function setDuration(int $duration)
     {
         $this->duration = $duration;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPeriod(): ?int
+    {
+        return $this->period;
+    }
+
+    /**
+     * @param int $period
+     */
+    public function setPeriod(int $period)
+    {
+        $this->period = $period;
     }
 
     /**
