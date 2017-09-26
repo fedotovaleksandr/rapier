@@ -40,8 +40,8 @@ class Employee
     protected $firstName;
 
     /**
-     * @var int
-     * @ORM\Column(type="smallint")
+     * @var string
+     * @ORM\Column(type="string", length=1)
      */
     protected $gender;
 
@@ -163,17 +163,17 @@ class Employee
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getGender(): ?int
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
     /**
-     * @param int $gender
+     * @param string $gender
      */
-    public function setGender(int $gender)
+    public function setGender(string $gender)
     {
         $this->gender = $gender;
     }
