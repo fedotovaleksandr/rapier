@@ -1,0 +1,40 @@
+# Common
+title.schedule: Schedule
+title.events: Events
+title.employees: Employees
+title.statistics: Statistics
+label.role: Role
+label.title: Title
+label.description: Description
+label.status: Status
+label.start_date: Start Date
+label.end_date: End Date
+label.start_time: Start Time
+action.reset: Reset
+action.save: Save
+
+# Employee form
+title.employee_info: Employee Info
+label.lastname: Last Name
+label.firstname: First Name
+label.gender: Gender
+gender.male: Male
+gender.female: Female
+label.phone: Phone
+label.workmode: Work Mode
+workmode.default: Default
+workmode.custom: Custom
+label.manager: Manager
+label.childs: Employees
+label.employee_days: Work Days
+label.roles: Roles
+label.employee_events: Employee Events
+action.add_employee: Add an employee
+
+# Event form
+label.duration: Duration, min
+label.period: Period
+label.importance: Importance (1-10)
+label.holder: Holder
+label.event_days: Event Days
+label.history: History
