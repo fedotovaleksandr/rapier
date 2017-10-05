@@ -15,6 +15,7 @@ parameters:
     mailer_port:        1025
     mailer_encryption:  null
     mailer_user:        no-reply@rapier.loc
+    mailer_send_as:     "Rapier Service"
     mailer_password:    null
 
     # A secret key that's used to generate certain security-related tokens
