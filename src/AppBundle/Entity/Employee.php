@@ -21,9 +21,9 @@ class Employee
      * An employee can be (and will be at most)
      * registered in the system himself.
      *
-     * @var User|null
-     * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", nullable=true)
+     * @var User
+     * @ORM\OneToOne(targetEntity="User", inversedBy="employee", cascade="all")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
 
@@ -78,7 +78,7 @@ class Employee
 
     /**
      * @var Role[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="employees")
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="employees",cascade={"persist"})
      * @ORM\JoinTable(name="employee_role")
      */
     protected $roles;
@@ -267,11 +267,40 @@ class Employee
     }
 
     /**
-     * @param iterable $roles
+     * @param iterable|Role[] $roles
      */
     public function setRoles(iterable $roles)
     {
-        $this->roles = $roles;
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+    }
+
+    /**
+     * @param Role $role
+     * @return bool
+     */
+    protected function validateRole(Role $role): bool
+    {
+        $availableRoles = User::getAvailableRoles();
+        if (!in_array($role->getRoleName(), $availableRoles, true)) {
+            throw new \InvalidArgumentException(
+                sprintf('%s role is not available.', $role)
+            );
+        }
+        return true;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function addRole(Role $role): void
+    {
+        if (!$this->roles->contains($role) && $this->validateRole($role)) {
+            $this->roles->add($role);
+            $role->addEmployee($this);
+            $this->user->addRole($role->getRoleName());
+        }
     }
 
     /**

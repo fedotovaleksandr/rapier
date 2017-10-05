@@ -1,7 +1,8 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="{{ path('app_dashboard') }}" class="site_title"><i class="fa fa-rocket"></i> <span>rapier</span></a>
+            <a href="{{ path('app_dashboard') }}" class="site_title"><i class="fa fa-rocket"></i>
+                <span>rapier</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -24,27 +25,30 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 <h3>Menu</h3>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('app_dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('employee_index') }}"><i class="fa fa-user"></i> Employee</a></li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('event_index') }}"><i class="fa fa-hand-spock-o"></i> Event</a></li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('employeeday_index') }}"><i class="fa fa-calendar"></i> EmployeeDay</a></li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('schedule_index') }}"><i class="fa fa-list"></i> Schedule</a></li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('role_index') }}"><i class="fa fa-user-plus"></i>Employee Role</a></li>
-                </ul>
-                <ul class="nav side-menu">
-                    <li><a href="{{ path('eventlog_index') }}"><i class="fa fa-list-ol"></i>Event Log</a></li>
-                </ul>
+                {% if is_granted(constant('\\AppBundle\\Entity\\User::ROLE_EMPLOYEE')) %}
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('app_dashboard') }}"><i class="fa fa-home"></i> Dashboard</a></li>
+                    </ul>
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('employee_index') }}"><i class="fa fa-user"></i> Employee</a></li>
+                    </ul>
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('event_index') }}"><i class="fa fa-hand-spock-o"></i> Event</a></li>
+                    </ul>
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('employeeday_index') }}"><i class="fa fa-calendar"></i> EmployeeDay</a>
+                        </li>
+                    </ul>
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('schedule_index') }}"><i class="fa fa-list"></i> Schedule</a></li>
+                    </ul>
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('role_index') }}"><i class="fa fa-user-plus"></i>Employee Role</a></li>
+                    </ul>
+                    <ul class="nav side-menu">
+                        <li><a href="{{ path('eventlog_index') }}"><i class="fa fa-list-ol"></i>Event Log</a></li>
+                    </ul>
+                {% endif %}
             </div>
 
             <div class="menu_section">
@@ -55,9 +59,9 @@
                             <i class="fa fa-book"></i>Symfony Documentation
                         </a>
                     </li>
-                </ul>                    
+                </ul>
             </div>
-            
+
         </div>
         <!-- /sidebar menu -->
 
