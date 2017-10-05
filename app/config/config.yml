@@ -85,4 +85,4 @@ fos_user:
             template:   '@FOSUser/Registration/email.txt.twig'
     from_email:
         address: '%mailer_user%'
-        sender_name: '%mailer_user%'
+        sender_name: '%mailer_send_as%'
