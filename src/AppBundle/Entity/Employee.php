@@ -278,6 +278,7 @@ class Employee
 
     /**
      * @param Role $role
+     *
      * @return bool
      */
     protected function validateRole(Role $role): bool
@@ -288,6 +289,7 @@ class Employee
                 sprintf('%s role is not available.', $role)
             );
         }
+
         return true;
     }
 

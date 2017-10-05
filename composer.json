@@ -51,6 +51,7 @@
         "brainmaestro/composer-git-hooks": "^2.3"
     },
     "scripts": {
+        "cghooks": "vendor/bin/cghooks",
         "test": [
             "php ./vendor/bin/phpunit"
         ],
@@ -63,10 +64,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "vendor/bin/cghooks add --ignore-lock"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "vendor/bin/cghooks update"
         ]
     },
     "extra": {

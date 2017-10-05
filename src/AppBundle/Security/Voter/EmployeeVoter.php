@@ -22,13 +22,13 @@ class EmployeeVoter extends Voter
 
     /**
      * EmployeeVoter constructor.
+     *
      * @param AccessDecisionManagerInterface $decisionManager
      */
     public function __construct(AccessDecisionManagerInterface $decisionManager)
     {
         $this->decisionManager = $decisionManager;
     }
-
 
     public static function getAvailableActions(): array
     {
@@ -46,6 +46,7 @@ class EmployeeVoter extends Voter
         if (!in_array($attribute, self::getAvailableActions(), true)) {
             throw $this->createActionException($attribute);
         }
+
         return true;
     }
 
@@ -58,9 +59,9 @@ class EmployeeVoter extends Voter
             return true;
         }
 
-        if ($attribute === self::VIEW) {
+        if (self::VIEW === $attribute) {
             return $this->voteView($subject, $token);
-        } elseif ($attribute === self::EDIT) {
+        } elseif (self::EDIT === $attribute) {
             return $this->voteEdit($subject, $token);
         }
 
@@ -70,6 +71,7 @@ class EmployeeVoter extends Voter
     /**
      * @param Employee       $employee
      * @param TokenInterface $token
+     *
      * @return bool
      */
     protected function voteView(Employee $employee, TokenInterface $token): bool
@@ -89,7 +91,7 @@ class EmployeeVoter extends Voter
             $managerEmployee = $currentUserEmployee->getManager();
             if ($managerEmployee->getEmployees()->contains($employee)) {
                 return true;
-            };
+            }
         }
 
         return false;
@@ -98,6 +100,7 @@ class EmployeeVoter extends Voter
     /**
      * @param Employee       $employee
      * @param TokenInterface $token
+     *
      * @return bool
      */
     protected function voteEdit(Employee $employee, TokenInterface $token): bool
