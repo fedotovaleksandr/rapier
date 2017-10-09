@@ -43,14 +43,8 @@ class Role
 
     // *** //
 
-    public function __construct(string $roleName)
+    public function __construct()
     {
-        if (!in_array($roleName, User::getAvailableRoles(), true)) {
-            throw new \InvalidArgumentException(
-                sprintf('%s role is not available.', $roleName)
-            );
-        }
-        $this->roleName = $roleName;
         $this->employees = new ArrayCollection();
         $this->events = new ArrayCollection();
     }

@@ -276,32 +276,15 @@ class Employee
         }
     }
 
-    /**
-     * @param Role $role
-     *
-     * @return bool
-     */
-    protected function validateRole(Role $role): bool
-    {
-        $availableRoles = User::getAvailableRoles();
-        if (!in_array($role->getRoleName(), $availableRoles, true)) {
-            throw new \InvalidArgumentException(
-                sprintf('%s role is not available.', $role)
-            );
-        }
-
-        return true;
-    }
 
     /**
      * @param Role $role
      */
     public function addRole(Role $role): void
     {
-        if (!$this->roles->contains($role) && $this->validateRole($role)) {
+        if (!$this->roles->contains($role)) {
             $this->roles->add($role);
             $role->addEmployee($this);
-            $this->user->addRole($role->getRoleName());
         }
     }
 
