@@ -20,3 +20,22 @@ services:
     monolog.multiline_formatter:
         class: Monolog\Formatter\LineFormatter
         arguments: [~, ~, true]
+
+    app.manager.employee_manager:
+        class: AppBundle\Model\Manager\EmployeeManager
+        arguments:
+            - "@app.repository.role"
+            - "@doctrine.orm.entity_manager"
+
+    app.repository.role:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - "AppBundle:Role"
+
+    app.security.voter.employee:
+        class: AppBundle\Security\Voter\EmployeeVoter
+        arguments:
+            - "@security.access.decision_manager"
+        tags:
+            - {name: "security.voter" }

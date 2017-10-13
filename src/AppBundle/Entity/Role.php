@@ -21,7 +21,7 @@ class Role
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    protected $title;
+    protected $roleName;
 
     /**
      * @var string|null
@@ -31,7 +31,7 @@ class Role
 
     /**
      * @var Employee[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Employee", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="Employee", mappedBy="roles",cascade={"persist"})
      */
     protected $employees;
 
@@ -60,17 +60,17 @@ class Role
     /**
      * @return string|null
      */
-    public function getTitle(): ?string
+    public function getRoleName(): ?string
     {
-        return $this->title;
+        return $this->roleName;
     }
 
     /**
-     * @param string $title
+     * @param string $roleName
      */
-    public function setTitle(string $title)
+    public function setRoleName(string $roleName)
     {
-        $this->title = $title;
+        $this->roleName = $roleName;
     }
 
     /**
@@ -102,7 +102,9 @@ class Role
      */
     public function setEmployees(iterable $employees)
     {
-        $this->employees = $employees;
+        foreach ($employees as $employee) {
+            $this->addEmployee($employee);
+        }
     }
 
     /**
@@ -119,5 +121,13 @@ class Role
     public function setEvents(iterable $events)
     {
         $this->events = $events;
+    }
+
+    public function addEmployee(Employee $employee)
+    {
+        if (!$this->employees->contains($employee)) {
+            $this->employees->add($employee);
+            $employee->addRole($this);
+        }
     }
 }

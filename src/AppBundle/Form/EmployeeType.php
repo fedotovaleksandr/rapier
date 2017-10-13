@@ -8,7 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class EmployeeType extends AbstractType
 {
@@ -33,22 +32,20 @@ class EmployeeType extends AbstractType
             ->add('gender', ChoiceType::class, array(
                 'choices' => array(
                     'gender.male' => 'M',
-                    'gender.female' => 'F'
-                )
+                    'gender.female' => 'F',
+                ),
             ))
             ->add('phone')
             ->add('manager') // TODO manager selection
             ->add('roles', CollectionType::class, array(
                 'entry_type' => RoleType::class,
-                'allow_add' => true
+                'allow_add' => true,
             ))
             ->add('workMode', ChoiceType::class, array(
                 'choices' => array(
-                    'workmode.default' =>
-                        $this->getParameter('rapier.work_modes')['default'],
-                    'workmode.custom' =>
-                        $this->getParameter('rapier.work_modes')['custom']
-                )
+                    'workmode.default' => $this->getParameter('rapier.work_modes')['default'],
+                    'workmode.custom' => $this->getParameter('rapier.work_modes')['custom'],
+                ),
             ));
     }
 
@@ -70,7 +67,8 @@ class EmployeeType extends AbstractType
         return 'appbundle_employee';
     }
 
-    private function getParameter(string $id) {
+    private function getParameter(string $id)
+    {
         return $this->container->getParameter($id);
     }
 }

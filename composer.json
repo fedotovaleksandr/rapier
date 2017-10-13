@@ -47,9 +47,11 @@
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.0",
-        "phpunit/phpunit": "^4.8.0"
+        "phpunit/phpunit": "^4.8.0",
+        "brainmaestro/composer-git-hooks": "^2.3"
     },
     "scripts": {
+        "cghooks": "vendor/bin/cghooks",
         "test": [
             "php ./vendor/bin/phpunit"
         ],
@@ -62,10 +64,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "vendor/bin/cghooks add --ignore-lock"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "vendor/bin/cghooks update"
         ]
     },
     "extra": {
@@ -77,6 +81,11 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
+        },
+        "hooks": {
+            "pre-commit": "./vendor/bin/php-cs-fixer fix --config=.php_cs",
+            "post-commit": "echo Good boy!",
+            "pre-push": "phpunit && echo pushing!"
         }
     }
 }

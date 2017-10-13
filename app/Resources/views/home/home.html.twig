@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h2>Welcome {{ app.user.username }} To Rapier</h2>
+    {% if not is_granted(constant('\\AppBundle\\Entity\\User::ROLE_EMPLOYEE')) %}
+        <h3>Now You are not Employee of organization. Please contact with Administrator</h3>
+    {% endif %}
+{% endblock %}
+
+
+
