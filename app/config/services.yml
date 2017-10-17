@@ -39,3 +39,16 @@ services:
             - "@security.access.decision_manager"
         tags:
             - {name: "security.voter" }
+
+    app.security.voter.event:
+        class: AppBundle\Security\Voter\EmployeeVoter
+        arguments:
+            - "@security.access.decision_manager"
+        tags:
+            - {name: "security.voter" }
+    app.security.voter.employee_day:
+        class: AppBundle\Security\Voter\EmployeeDayVoter
+        arguments:
+            - "@security.access.decision_manager"
+        tags:
+            - {name: "security.voter" }
