@@ -21,7 +21,25 @@ class User extends BaseUser
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_EMPLOYEE = 'ROLE_EMPLOYEE';
 
+    /**
+     * @return array
+     */
     public static function getAvailableRoles(): array
+    {
+        return [
+            self::ROLE_DEFAULT,
+            self::ROLE_SUPER_ADMIN,
+            self::ROLE_COMPANY_OWNER,
+            self::ROLE_ADMIN,
+            self::ROLE_MANAGER,
+            self::ROLE_EMPLOYEE,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getEmployeeAvailableRoles(): array
     {
         return [
             self::ROLE_COMPANY_OWNER,
@@ -51,9 +69,9 @@ class User extends BaseUser
     }
 
     /**
-     * @return Employee
+     * @return Employee|null
      */
-    public function getEmployee(): Employee
+    public function getEmployee(): ?Employee
     {
         return $this->employee;
     }

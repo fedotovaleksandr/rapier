@@ -319,4 +319,8 @@ class Employee
     {
         $this->eventLogs = $eventLogs;
     }
+
+    public function getFullName(): string{
+        return sprintf('%s %s',$this->firstName,$this->lastName);
+    }
 }

@@ -8,15 +8,19 @@
 
     <title>rapier - Symfony Web Application</title>
 
+
 {% block stylesheets %}
     <!-- Bootstrap -->
     <link href="{{ asset('assets/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ asset('assets/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-{% endblock stylesheets %}
+
+    <link href="{{ asset('assets/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
 
 </head>
 
@@ -32,7 +36,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="">
-                {% block top_content_header %}
+                {#{% block top_content_header %}
                 <div class="page-title">
                     <div class="title_left">
                    <h3>{% block page_title %}Page Title{% endblock page_title %}</h3>
@@ -49,12 +53,13 @@
                         </div>
                     </div>
                 </div>
-                {% endblock top_content_header %}
+                {% endblock top_content_header %}#}
 
                 <div class="clearfix"></div>
 
+                {% block body %}
 
-                {% block body %}{% endblock %}
+                {% endblock %}
 
 
             </div>
@@ -77,9 +82,17 @@
     <script src="{{ asset('assets/vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- NProgress -->
     <script src="{{ asset('assets/vendors/nprogress/nprogress.js') }}"></script>
+
+    <script src="{{ asset('assets/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+
+    <script src="{{ asset('assets/vendors/select2/dist/js/select2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
 {% endblock javascripts %}
 
-{% block modals %}{% endblock modals %}
+
+{% block modals %}
+{% endblock modals %}
 
 
 </body>
