@@ -38,9 +38,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
-    $BODY = $('body'),
+if (window.location.href.split('/')[3]!== undefined) {
+  CURRENT_URL = '/' + window.location.href.split('/')[3] +'/';
+} else {
+  CURRENT_URL = '/';
+}
+var $BODY = $('body'),
     $MENU_TOGGLE = $('#menu_toggle'),
     $SIDEBAR_MENU = $('#sidebar-menu'),
     $SIDEBAR_FOOTER = $('.sidebar-footer'),
