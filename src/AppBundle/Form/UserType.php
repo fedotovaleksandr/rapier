@@ -21,14 +21,14 @@ class UserType extends AbstractType
         $builder->add('employee', EntityType::class, [
             'choice_name' => 'fullName',
             'attr' => ['class' => 'select2_single'],
-            'class' => Employee::class
+            'class' => Employee::class,
         ]);
 
         $builder->add('roles', ChoiceType::class, [
-            'choices' => array_combine(User::getAvailableRoles(),User::getAvailableRoles()),
+            'choices' => array_combine(User::getAvailableRoles(), User::getAvailableRoles()),
             'choices_as_values' => true,
             'attr' => ['class' => 'select2_multiple '],
-            'multiple' => true
+            'multiple' => true,
         ]);
 
         $builder->add('email', EmailType::class);
@@ -40,7 +40,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\User',
         ]);
     }
 
@@ -51,6 +51,4 @@ class UserType extends AbstractType
     {
         return 'appbundle_user';
     }
-
-
 }

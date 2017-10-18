@@ -276,7 +276,6 @@ class Employee
         }
     }
 
-
     /**
      * @param Role $role
      */
@@ -320,7 +319,8 @@ class Employee
         $this->eventLogs = $eventLogs;
     }
 
-    public function getFullName(): string{
-        return sprintf('%s %s',$this->firstName,$this->lastName);
+    public function getFullName(): string
+    {
+        return sprintf('%s %s', $this->firstName, $this->lastName);
     }
 }
