@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function homepageAction(Request $request)
     {
-        return $this->render('base.html.twig', []);
+        return $this->render('home/home.html.twig', []);
     }
 
     /**
@@ -38,6 +38,6 @@ class HomeController extends Controller
      */
     public function dashboardAction(Request $request)
     {
-        return $this->render('base.html.twig', []);
+        return $this->render('dashboard/dashboard.html.twig', []);
     }
 }

@@ -46,5 +46,7 @@ $ docker-compose up -d
 $ docker-compose ps
 ```
 
+## Helpfull Tips
 
+localhost:1080 mail catcher (for registartion)
 

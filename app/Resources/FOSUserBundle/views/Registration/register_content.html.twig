@@ -1,0 +1,43 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<div>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+                <section class="login_content">
+                    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+                    <h1>Create Account</h1>
+                    <div>
+                        {{ form_widget(form.username,{'attr': {'class': 'form-control', placeholder: 'Username'}}) }}
+                    </div>
+                    <div>
+                        {{ form_widget(form.email,{'attr': {'type': 'email','class': 'form-control', placeholder: 'Email'}}) }}
+                    </div>
+                    <div>
+                        {{ form_widget(form.plainPassword.first,{'attr': {'type': 'password','class': 'form-control', placeholder: 'Password'}}) }}
+                    </div>
+                    <div>
+                        {{ form_widget(form.plainPassword.second,{'attr': {'type': 'password','class': 'form-control', placeholder: 'Repeat Password'}}) }}
+                    </div>
+                    <div align="center">
+                        <input class="btn btn-default submit" type="submit" value="{{ 'registration.submit'|trans }}"/>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">Already a member ?
+                            <a href="{{ path('fos_user_security_login') }}" class="to_register"> Log in </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br/>
+
+                        <div>
+                            <h1><i class="fa fa-rocket"></i> rapier</h1>
+                            <p>©2016 All Rights Reserved. <a href="">Privacy and Terms</a></p>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </section>
+        </div>
+    </div>
+</div>
