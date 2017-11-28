@@ -276,7 +276,6 @@ class Employee
         }
     }
 
-
     /**
      * @param Role $role
      */

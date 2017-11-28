@@ -2,8 +2,6 @@
 
 namespace AppBundle\Model\Manager;
 
-use AppBundle\Entity\Employee;
-use AppBundle\Entity\Role;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
