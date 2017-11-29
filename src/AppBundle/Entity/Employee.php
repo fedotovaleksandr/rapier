@@ -213,7 +213,7 @@ class Employee
     /**
      * @return Employee|null
      */
-    public function getManager(): ?Employee
+    public function getManager(): ?self
     {
         return $this->manager;
     }
@@ -221,7 +221,7 @@ class Employee
     /**
      * @param Employee|null $manager
      */
-    public function setManager(?Employee $manager)
+    public function setManager(?self $manager)
     {
         $this->manager = $manager;
     }
