@@ -6,10 +6,10 @@ echo "Install bower dependencies..."
 node_modules/.bin/bower install
 
 echo "Composer i"
-composer install --no-dev
+composer install
 
 echo "Run Migration..."
-php bin/console d:m:m --env=prod
+php bin/console d:m:m
 
 echo "Clear Cache..."
-php bin/console cache:clear --env=prod
+php bin/console cache:clear
