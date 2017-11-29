@@ -4,19 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-
-    AppBundle\:
-        resource: '../../src/AppBundle/*'
-        exclude: '../../src/AppBundle/{Entity,Repository}'
-
-    AppBundle\Controller\:
-        resource: '../../src/AppBundle/Controller'
-        tags: ['controller.service_arguments']
-
     monolog.multiline_formatter:
         class: Monolog\Formatter\LineFormatter
         arguments: [~, ~, true]
