@@ -49,6 +49,11 @@
                         <li><a href="{{ path('eventlog_index') }}"><i class="fa fa-list-ol"></i>Event Log</a></li>
                     </ul>
                 {% endif %}
+                {% if is_granted(constant('\\AppBundle\\Entity\\User::ROLE_SUPER_ADMIN')) %}
+                <ul class="nav side-menu">
+                    <li><a href="{{ path('user_index') }}"><i class="fa fa-user"></i>User Managment</a></li>
+                </ul>
+                {% endif %}
             </div>
 
             <div class="menu_section">

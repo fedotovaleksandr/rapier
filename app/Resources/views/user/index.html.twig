@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Users list</h1>
+
+    <table id="datatable" class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>LastLogin</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.username }}</a></td>
+                <td>{{ user.roles|join('|') }}</td>
+                <td>{{ user.lastLogin|date }}</td>
+                <td>
+                    <a class="btn btn-default" href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
