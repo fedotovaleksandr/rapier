@@ -29,5 +29,8 @@
       "description": "User e-mail",
       "value": ""
     }
+  },
+  "scripts": {
+    "postdeploy": "php bin/console doctrine:migration:migrate"
   }
 }

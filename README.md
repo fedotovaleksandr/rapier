@@ -48,5 +48,5 @@ $ docker-compose ps
 
 ## Helpfull Tips
 
-localhost:1080 mail catcher (for registartion)
-
+- localhost:1080 mail catcher (for registartion)
+- bin/cghooks_install.sh (install and update git hooks ) RECOMMENDED
