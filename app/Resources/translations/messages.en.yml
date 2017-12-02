@@ -4,12 +4,22 @@ title.events: Events
 title.employees: Employees
 title.statistics: Statistics
 label.role: Role
+label.responsible: Responsible
 label.title: Title
 label.description: Description
 label.status: Status
 label.start_date: Start Date
 label.end_date: End Date
-label.start_time: Start Time
+label.since: Since
+label.till: Till
+
+week.mon: Monday
+week.tue: Tuesday
+week.wed: Wednesday
+week.thu: Thursday
+week.fri: Friday
+week.sat: Saturday
+week.sun: Sunday
 action.reset: Reset
 action.save: Save
 
@@ -38,3 +48,11 @@ label.importance: Importance (1-10)
 label.holder: Holder
 label.event_days: Event Days
 label.history: History
+event.wt.minor: Minor
+event.wt.medium: Medium
+event.wt.major: Major
+event.wt.critical: Critical
+event.status.draft: Draft
+event.status.open: Opened
+event.status.finish: Finished
+event.status.closed: Closed

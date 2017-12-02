@@ -10,6 +10,22 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event
 {
+    public const WT_MINOR = 1;
+    public const WT_MEDIUM = 4;
+    public const WT_MAJOR = 7;
+    public const WT_CRITICAL = 10;
+
+    public const STATUS_DRAFT = 0;
+    public const STATUS_OPEN = 10;
+    public const STATUS_FINISHED = 20;
+    public const STATUS_CLOSED = 30;
+
+    public const PERIOD_ONCE = 0;
+    public const PERIOD_DAY = 10;
+    public const PERIOD_WEEK = 20;
+    public const PERIOD_BIWEEK = 30;
+    public const PERIOD_MONTH = 40;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -82,13 +98,13 @@ class Event
 
     /**
      * @var EventDay[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="EventDay", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="EventDay", mappedBy="event", cascade={"persist","remove"})
      */
     protected $eventDays;
 
     /**
      * @var EventLog[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="EventLog", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="EventLog", mappedBy="event", cascade={"persist","remove"})
      */
     protected $eventLogs;
 
@@ -101,9 +117,9 @@ class Event
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -269,7 +285,7 @@ class Event
     }
 
     /**
-     * @return ArrayCollection
+     * @return EventDay[]|ArrayCollection
      */
     public function getEventDays()
     {
@@ -277,25 +293,25 @@ class Event
     }
 
     /**
-     * @param iterable $eventDays
+     * @param EventDay[]|ArrayCollection $eventDays
      */
-    public function setEventDays(iterable $eventDays)
+    public function setEventDays($eventDays)
     {
         $this->eventDays = $eventDays;
     }
 
     /**
-     * @return ArrayCollection
+     * @return EventLog[]|ArrayCollection
      */
-    public function getEventLogs(): ArrayCollection
+    public function getEventLogs()
     {
         return $this->eventLogs;
     }
 
     /**
-     * @param iterable $eventLogs
+     * @param EventLog[]|ArrayCollection $eventLogs
      */
-    public function setEventLogs(iterable $eventLogs)
+    public function setEventLogs($eventLogs)
     {
         $this->eventLogs = $eventLogs;
     }

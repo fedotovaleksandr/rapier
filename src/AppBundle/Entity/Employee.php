@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Employee
 {
+    public const WORKMODE_DEFAULT = 0;
+    public const WORKMODE_CUSTOM = 1;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -18,9 +21,6 @@ class Employee
     protected $id;
 
     /**
-     * An employee can be (and will be at most)
-     * registered in the system himself.
-     *
      * @var User
      * @ORM\OneToOne(targetEntity="User", inversedBy="employee", cascade="all")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -66,32 +66,32 @@ class Employee
 
     /**
      * @var Employee[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Employee", mappedBy="manager")
+     * @ORM\OneToMany(targetEntity="Employee", mappedBy="manager", cascade="persist")
      */
     protected $employees;
 
     /**
      * @var EmployeeDay[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="EmployeeDay", mappedBy="employee")
+     * @ORM\OneToMany(targetEntity="EmployeeDay", mappedBy="employee", cascade={"persist","remove"})
      */
     protected $employeeDays;
 
     /**
      * @var Role[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="employees",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="employees", cascade="persist")
      * @ORM\JoinTable(name="employee_role")
      */
     protected $roles;
 
     /**
      * @var Event[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Event", mappedBy="employee")
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="employee", cascade={"persist","remove"})
      */
     protected $events;
 
     /**
      * @var EventLog[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="EventLog", mappedBy="employee")
+     * @ORM\OneToMany(targetEntity="EventLog", mappedBy="employee", cascade={"persist","remove"})
      */
     protected $eventLogs;
 
@@ -106,10 +106,23 @@ class Employee
         $this->eventLogs = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return implode(' ', [$this->id, $this->lastName, $this->firstName]);
+    }
+
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): int
+    public function getFullName(): string
+    {
+        return implode(' ', [$this->firstName, $this->lastName]);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -123,9 +136,9 @@ class Employee
     }
 
     /**
-     * @param User|null $user
+     * @param User $user
      */
-    public function setUser(?User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
     }
@@ -227,100 +240,135 @@ class Employee
     }
 
     /**
-     * @return ArrayCollection
+     * @return Employee[]|ArrayCollection
      */
-    public function getEmployees(): ArrayCollection
+    public function getEmployees()
     {
         return $this->employees;
     }
 
     /**
-     * @param iterable $employees
+     * @param Employee[]|ArrayCollection $employees
      */
-    public function setEmployees(iterable $employees)
+    public function setEmployees($employees)
     {
         $this->employees = $employees;
     }
 
     /**
-     * @return ArrayCollection
+     * @param Employee $employee
+     * @return bool
      */
-    public function getEmployeeDays(): ArrayCollection
+    public function addEmployee(self $employee): bool
+    {
+        $employees = &$this->employees;
+
+        if (!$this->isManagerOf($employee->getId()))
+            return $employees->add($employee);
+
+        return false;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function isManagerOf(int $id): bool
+    {
+        $employees = &$this->employees;
+        $idComp = function($i, $employee) use($id) {
+            return $employee->id === $id;
+        };
+
+        return $employees->exists($idComp);
+    }
+
+    /**
+     * @return EmployeeDay[]|ArrayCollection
+     */
+    public function getEmployeeDays()
     {
         return $this->employeeDays;
     }
 
     /**
-     * @param iterable $employeeDays
+     * @param EmployeeDay[]|ArrayCollection $employeeDays
      */
-    public function setEmployeeDays(iterable $employeeDays)
+    public function setEmployeeDays($employeeDays)
     {
         $this->employeeDays = $employeeDays;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Role[]|ArrayCollection
      */
-    public function getRoles(): ArrayCollection
+    public function getRoles()
     {
         return $this->roles;
     }
 
     /**
-     * @param iterable|Role[] $roles
+     * @param Role[]|ArrayCollection $roles
      */
-    public function setRoles(iterable $roles)
+    public function setRoles($roles)
     {
-        foreach ($roles as $role) {
-            $this->addRole($role);
-        }
+        $this->roles = $roles;
     }
 
     /**
      * @param Role $role
+     * @return bool
      */
-    public function addRole(Role $role): void
+    public function addRole(Role $role): bool
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles->add($role);
-            $role->addEmployee($this);
-        }
+        $roles = &$this->roles;
+        if (!$this->is($role->getId()))
+            return $roles->add($role);
+
+        return false;
     }
 
     /**
-     * @return ArrayCollection
+     * @param int $roleId
      */
-    public function getEvents(): ArrayCollection
+    public function is(int $roleId) {
+        $roles = &$this->roles;
+        $idComp = function($i, $role) use($roleId) {
+            return $role->getId() === $roleId;
+        };
+
+        return $roles->exists($idComp);
+    }
+
+    /**
+     * @return Event[]|ArrayCollection
+     */
+    public function getEvents()
     {
         return $this->events;
     }
 
     /**
-     * @param iterable $events
+     * @param Event[]|ArrayCollection $events
      */
-    public function setEvents(iterable $events)
+    public function setEvents($events)
     {
         $this->events = $events;
     }
 
     /**
-     * @return ArrayCollection
+     * @return EventLog[]|ArrayCollection
      */
-    public function getEventLogs(): ArrayCollection
+    public function getEventLogs()
     {
         return $this->eventLogs;
     }
 
     /**
-     * @param iterable $eventLogs
+     * @param EventLog[]|ArrayCollection $eventLogs
      */
-    public function setEventLogs(iterable $eventLogs)
+    public function setEventLogs($eventLogs)
     {
         $this->eventLogs = $eventLogs;
-    }
-
-    public function getFullName(): string
-    {
-        return sprintf('%s %s', $this->firstName, $this->lastName);
     }
 }

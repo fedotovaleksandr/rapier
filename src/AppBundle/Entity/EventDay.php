@@ -26,6 +26,14 @@ class EventDay
     // *** //
 
     /**
+     * @param int $day
+     */
+    public function __construct(int $day)
+    {
+        $this->day = $day;
+    }
+
+    /**
      * @return Event|null
      */
     public function getEvent(): ?Event

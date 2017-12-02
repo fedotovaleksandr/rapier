@@ -9,6 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EmployeeDay
 {
+    public const MON = 0;
+    public const TUE = 1;
+    public const WED = 2;
+    public const THU = 3;
+    public const FRI = 4;
+    public const SAT = 5;
+    public const SUN = 6;
+
     /**
      * @var Employee
      * @ORM\Id
@@ -36,6 +44,15 @@ class EmployeeDay
     protected $endTime;
 
     // *** //
+
+    public function __toString()
+    {
+        $timeFmt = 'H:i';
+        return implode(' ', [$this->day,
+            date_format($this->startTime, $timeFmt),
+            date_format($this->endTime, $timeFmt),
+        ]);
+    }
 
     /**
      * @return Employee|null
