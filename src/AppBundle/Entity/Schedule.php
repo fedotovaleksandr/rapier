@@ -145,7 +145,8 @@ class Schedule
     /**
      * @param Event $event
      */
-    public function addEvent(Event $event) {
+    public function addEvent(Event $event)
+    {
         $this->events->add($event);
     }
 }

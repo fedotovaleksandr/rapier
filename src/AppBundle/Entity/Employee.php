@@ -271,8 +271,9 @@ class Employee
     {
         $employees = &$this->employees;
 
-        if (!$this->isManagerOf($employee->getId()))
+        if (!$this->isManagerOf($employee->getId())) {
             return $employees->add($employee);
+        }
 
         return false;
     }
@@ -285,7 +286,7 @@ class Employee
     public function isManagerOf(int $id): bool
     {
         $employees = &$this->employees;
-        $idComp = function($i, $employee) use($id) {
+        $idComp = function ($i, $employee) use ($id) {
             return $employee->id === $id;
         };
 
@@ -332,8 +333,9 @@ class Employee
     public function addRole(Role $role): bool
     {
         $roles = &$this->roles;
-        if (!$this->hasRole($role->getId()))
+        if (!$this->hasRole($role->getId())) {
             return $roles->add($role);
+        }
 
         return false;
     }
@@ -346,7 +348,7 @@ class Employee
     public function hasRole(int $roleId): bool
     {
         $roles = &$this->roles;
-        $idComp = function($i, $role) use($roleId) {
+        $idComp = function ($i, $role) use ($roleId) {
             return $role->getId() === $roleId;
         };
 

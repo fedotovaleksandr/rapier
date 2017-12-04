@@ -343,7 +343,8 @@ class Event
     /**
      * @param EventLog $eventLog
      */
-    public function addEventLog(EventLog $eventLog) {
+    public function addEventLog(EventLog $eventLog)
+    {
         $this->eventLogs->add($eventLog);
     }
 }
