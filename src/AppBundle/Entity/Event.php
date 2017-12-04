@@ -17,8 +17,9 @@ class Event
 
     public const STATUS_DRAFT = 0;
     public const STATUS_OPEN = 10;
-    public const STATUS_FINISHED = 20;
-    public const STATUS_CLOSED = 30;
+    public const STATUS_WORK = 20;
+    public const STATUS_FINISH = 30;
+    public const STATUS_CLOSED = 40;
 
     public const PERIOD_ONCE = 0;
     public const PERIOD_DAY = 10;
@@ -74,6 +75,13 @@ class Event
      * @ORM\Column(type="smallint")
      */
     protected $status;
+
+    /**
+     * @var Employee
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="events")
+     * @ORM\JoinColumn(name="owner_id", nullable=false)
+     */
+    protected $owner;
 
     /**
      * @var Employee|null
@@ -239,6 +247,22 @@ class Event
     /**
      * @return Employee|null
      */
+    public function getOwner(): ?Employee
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param Employee $owner
+     */
+    public function setOwner(Employee $owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return Employee|null
+     */
     public function getEmployee(): ?Employee
     {
         return $this->employee;
@@ -314,5 +338,12 @@ class Event
     public function setEventLogs($eventLogs)
     {
         $this->eventLogs = $eventLogs;
+    }
+
+    /**
+     * @param EventLog $eventLog
+     */
+    public function addEventLog(EventLog $eventLog) {
+        $this->eventLogs->add($eventLog);
     }
 }

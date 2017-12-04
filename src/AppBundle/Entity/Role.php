@@ -31,7 +31,7 @@ class Role
 
     /**
      * @var Employee[]|ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Employee", mappedBy="roles",cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Employee", mappedBy="roles", cascade={"persist"})
      */
     protected $employees;
 
@@ -50,9 +50,9 @@ class Role
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -90,44 +90,34 @@ class Role
     }
 
     /**
-     * @return ArrayCollection
+     * @return Employee[]|ArrayCollection
      */
-    public function getEmployees(): ArrayCollection
+    public function getEmployees()
     {
         return $this->employees;
     }
 
     /**
-     * @param iterable $employees
+     * @param Employee[]|ArrayCollection $employees
      */
-    public function setEmployees(iterable $employees)
+    public function setEmployees($employees)
     {
-        foreach ($employees as $employee) {
-            $this->addEmployee($employee);
-        }
+        $this->employees = $employees;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Event[]|ArrayCollection
      */
-    public function getEvents(): ArrayCollection
+    public function getEvents()
     {
         return $this->events;
     }
 
     /**
-     * @param iterable $events
+     * @param Event[]|ArrayCollection $events
      */
-    public function setEvents(iterable $events)
+    public function setEvents($events)
     {
         $this->events = $events;
-    }
-
-    public function addEmployee(Employee $employee)
-    {
-        if (!$this->employees->contains($employee)) {
-            $this->employees->add($employee);
-            $employee->addRole($this);
-        }
     }
 }

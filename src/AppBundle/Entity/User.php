@@ -1,10 +1,5 @@
 <?php
 
-/*
- * For the full copyright and license information, please view the LICENSE file
- * that was distributed with this source code.
- */
-
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
@@ -62,12 +57,6 @@ class User extends BaseUser
      */
     protected $employee;
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
-
     /**
      * @return Employee|null
      */
@@ -77,9 +66,9 @@ class User extends BaseUser
     }
 
     /**
-     * @param Employee $employee
+     * @param Employee|null $employee
      */
-    public function setEmployee(Employee $employee)
+    public function setEmployee(?Employee $employee)
     {
         $this->employee = $employee;
     }

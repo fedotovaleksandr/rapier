@@ -45,9 +45,18 @@ class EmployeeDay
 
     // *** //
 
+    /**
+     * @param int $day
+     */
+    public function __construct(int $day)
+    {
+        $this->day = $day;
+    }
+
     public function __toString()
     {
         $timeFmt = 'H:i';
+
         return implode(' ', [$this->day,
             date_format($this->startTime, $timeFmt),
             date_format($this->endTime, $timeFmt),

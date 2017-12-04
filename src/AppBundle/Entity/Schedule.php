@@ -43,7 +43,7 @@ class Schedule
 
     /**
      * @var Event[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Event", mappedBy="schedule")
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="schedule", cascade={"persist","remove"})
      */
     protected $events;
 
@@ -55,9 +55,9 @@ class Schedule
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -127,18 +127,25 @@ class Schedule
     }
 
     /**
-     * @return ArrayCollection
+     * @return Event[]|ArrayCollection
      */
-    public function getEvents(): ArrayCollection
+    public function getEvents()
     {
         return $this->events;
     }
 
     /**
-     * @param iterable $events
+     * @param Event[]|ArrayCollection $events
      */
-    public function setEvents(iterable $events)
+    public function setEvents($events)
     {
         $this->events = $events;
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function addEvent(Event $event) {
+        $this->events->add($event);
     }
 }

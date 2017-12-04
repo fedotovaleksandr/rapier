@@ -9,6 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class EventLog
 {
+    public const ACTION_CREATE = 0;
+    public const ACTION_TOGGLE = 10;
+    public const ACTION_START = 20;
+    public const ACTION_STOP = 30;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -80,10 +85,15 @@ class EventLog
 
     // *** //
 
+    public function __construct()
+    {
+        $this->timeInstant = new \DateTime();
+    }
+
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -99,10 +109,10 @@ class EventLog
     /**
      * @param \DateTimeInterface $timeInstant
      */
-    public function setTimeInstant(\DateTimeInterface $timeInstant)
+    /*public function setTimeInstant(\DateTimeInterface $timeInstant)
     {
         $this->timeInstant = $timeInstant;
-    }
+    }*/
 
     /**
      * @return string|null

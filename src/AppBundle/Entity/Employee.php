@@ -23,7 +23,7 @@ class Employee
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="User", inversedBy="employee", cascade="all")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
@@ -90,6 +90,12 @@ class Employee
     protected $events;
 
     /**
+     * @var Event[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="owner", cascade={"persist","remove"})
+     */
+    protected $ownEvents;
+
+    /**
      * @var EventLog[]|ArrayCollection
      * @ORM\OneToMany(targetEntity="EventLog", mappedBy="employee", cascade={"persist","remove"})
      */
@@ -103,6 +109,7 @@ class Employee
         $this->employeeDays = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->ownEvents = new ArrayCollection();
         $this->eventLogs = new ArrayCollection();
     }
 
@@ -116,7 +123,7 @@ class Employee
      */
     public function getFullName(): string
     {
-        return implode(' ', [$this->firstName, $this->lastName]);
+        return implode(' ', [$this->lastName, $this->firstName]);
     }
 
     /**
@@ -257,6 +264,7 @@ class Employee
 
     /**
      * @param Employee $employee
+     *
      * @return bool
      */
     public function addEmployee(self $employee): bool
@@ -271,6 +279,7 @@ class Employee
 
     /**
      * @param int $id
+     *
      * @return bool
      */
     public function isManagerOf(int $id): bool
@@ -317,12 +326,13 @@ class Employee
 
     /**
      * @param Role $role
+     *
      * @return bool
      */
     public function addRole(Role $role): bool
     {
         $roles = &$this->roles;
-        if (!$this->is($role->getId()))
+        if (!$this->hasRole($role->getId()))
             return $roles->add($role);
 
         return false;
@@ -330,8 +340,11 @@ class Employee
 
     /**
      * @param int $roleId
+     *
+     * @return bool
      */
-    public function is(int $roleId) {
+    public function hasRole(int $roleId): bool
+    {
         $roles = &$this->roles;
         $idComp = function($i, $role) use($roleId) {
             return $role->getId() === $roleId;
@@ -354,6 +367,22 @@ class Employee
     public function setEvents($events)
     {
         $this->events = $events;
+    }
+
+    /**
+     * @return Event[]|ArrayCollection
+     */
+    public function getOwnEvents()
+    {
+        return $this->ownEvents;
+    }
+
+    /**
+     * @param Event[]|ArrayCollection $ownEvents
+     */
+    public function setOwnEvents($ownEvents)
+    {
+        $this->ownEvents = $ownEvents;
     }
 
     /**
