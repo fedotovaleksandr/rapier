@@ -43,7 +43,7 @@ class Schedule
 
     /**
      * @var Event[]|ArrayCollection
-     * @ORM\OneToMany(targetEntity="Event", mappedBy="schedule", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Event", mappedBy="schedule", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $events;
 
@@ -144,9 +144,32 @@ class Schedule
 
     /**
      * @param Event $event
+     *
+     * @return bool
      */
-    public function addEvent(Event $event)
+    public function addEvent(Event $event): bool
     {
-        $this->events->add($event);
+        $event->setSchedule($this);
+
+        return $this->events->add($event);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function removeEvent(int $id): bool
+    {
+        $events = &$this->events;
+        $count = $events->count();
+
+        for ($i = 0; $i < $count; ++$i) {
+            if ($events[$i]->getId() === $id) {
+                return $events->remove($i);
+            }
+        }
+
+        return false;
     }
 }

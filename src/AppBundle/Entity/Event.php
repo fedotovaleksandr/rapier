@@ -322,6 +322,9 @@ class Event
     public function setEventDays($eventDays)
     {
         $this->eventDays = $eventDays;
+        foreach ($this->eventDays as $eventDay) {
+            $eventDay->setEvent($this);
+        }
     }
 
     /**
@@ -342,9 +345,13 @@ class Event
 
     /**
      * @param EventLog $eventLog
+     *
+     * @return bool
      */
-    public function addEventLog(EventLog $eventLog)
+    public function addEventLog(EventLog $eventLog): bool
     {
-        $this->eventLogs->add($eventLog);
+        $eventLog->setEvent($this);
+
+        return $this->eventLogs->add($eventLog);
     }
 }

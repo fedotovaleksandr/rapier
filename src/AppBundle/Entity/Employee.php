@@ -23,7 +23,7 @@ class Employee
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="User", inversedBy="employee", cascade="all")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
@@ -148,6 +148,7 @@ class Employee
     public function setUser(User $user)
     {
         $this->user = $user;
+        $user->setEmployee($this);
     }
 
     /**
@@ -271,7 +272,9 @@ class Employee
     {
         $employees = &$this->employees;
 
-        if (!$this->isManagerOf($employee->getId())) {
+        if (!$this->isManagerOf($employee)) {
+            $employee->setManager($this);
+
             return $employees->add($employee);
         }
 
@@ -279,18 +282,18 @@ class Employee
     }
 
     /**
-     * @param int $id
+     * @param Employee $employee
      *
      * @return bool
      */
-    public function isManagerOf(int $id): bool
+    public function isManagerOf(self $employee): bool
     {
-        $employees = &$this->employees;
-        $idComp = function ($i, $employee) use ($id) {
-            return $employee->id === $id;
-        };
+        $manager = $employee->getManager();
+        if (is_null($manager)) {
+            return false;
+        }
 
-        return $employees->exists($idComp);
+        return $this->getId() === $manager->getId();
     }
 
     /**
@@ -307,6 +310,9 @@ class Employee
     public function setEmployeeDays($employeeDays)
     {
         $this->employeeDays = $employeeDays;
+        foreach ($this->employeeDays as $employeeDay) {
+            $employeeDay->setEmployee($this);
+        }
     }
 
     /**
@@ -334,6 +340,8 @@ class Employee
     {
         $roles = &$this->roles;
         if (!$this->hasRole($role->getId())) {
+            $role->addEmployee($this);
+
             return $roles->add($role);
         }
 
@@ -341,12 +349,16 @@ class Employee
     }
 
     /**
-     * @param int $roleId
+     * @param int|null $roleId
      *
      * @return bool
      */
-    public function hasRole(int $roleId): bool
+    public function hasRole(?int $roleId): bool
     {
+        if (is_null($roleId)) {
+            return false;
+        }
+
         $roles = &$this->roles;
         $idComp = function ($i, $role) use ($roleId) {
             return $role->getId() === $roleId;

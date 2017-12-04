@@ -106,6 +106,40 @@ class Role
     }
 
     /**
+     * @param Employee $employee
+     *
+     * @return bool
+     */
+    public function addEmployee(Employee $employee): bool
+    {
+        $employees = &$this->employees;
+        if (!$this->hasEmployee($employee->getId())) {
+            return $employees->add($employee);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param int|null $employeeId
+     *
+     * @return bool
+     */
+    public function hasEmployee(?int $employeeId)
+    {
+        if (is_null($employeeId)) {
+            return false;
+        }
+
+        $employees = &$this->employees;
+        $idComp = function ($i, $employee) use ($employeeId) {
+            return $employee->getId() === $employeeId;
+        };
+
+        return $employees->exists($idComp);
+    }
+
+    /**
      * @return Event[]|ArrayCollection
      */
     public function getEvents()

@@ -54,5 +54,6 @@ event.wt.major: Major
 event.wt.critical: Critical
 event.status.draft: Draft
 event.status.open: Opened
+event.status.work: In Work
 event.status.finish: Finished
 event.status.closed: Closed
