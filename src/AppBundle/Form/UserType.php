@@ -19,7 +19,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('employee', EntityType::class, [
-            'choice_name' => 'fullName',
+            'choice_label' => 'fullName',
             'attr' => ['class' => 'select2_single'],
             'class' => Employee::class,
         ]);
@@ -27,7 +27,7 @@ class UserType extends AbstractType
         $builder->add('roles', ChoiceType::class, [
             'choices' => array_combine(User::getAvailableRoles(), User::getAvailableRoles()),
             'choices_as_values' => true,
-            'attr' => ['class' => 'select2_multiple '],
+            'attr' => ['class' => 'select2_multiple'],
             'multiple' => true,
         ]);
 
@@ -40,7 +40,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AppBundle\Entity\User',
+            'data_class' => User::class,
         ]);
     }
 

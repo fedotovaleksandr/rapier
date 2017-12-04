@@ -2,51 +2,75 @@
 
 namespace AppBundle\Form;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use AppBundle\Entity\Employee;
+use AppBundle\Entity\Role;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EmployeeType extends AbstractType
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastName')
-            ->add('firstName')
-            ->add('gender', ChoiceType::class, array(
-                'choices' => array(
+            // Name & e-mail
+            ->add('lastName', null, ['label' => 'label.lastname'])
+            ->add('firstName', null, ['label' => 'label.firstname'])
+            ->add('email', EmailType::class, [
+                'label' => 'label.email',
+                'property_path' => 'user.email',
+            ])
+
+            // Gender
+            ->add('gender', ChoiceType::class, [
+                'label' => 'label.gender',
+                'choices' => [
                     'gender.male' => 'M',
                     'gender.female' => 'F',
-                ),
-            ))
-            ->add('phone')
-            ->add('manager') // TODO manager selection
-            ->add('roles', CollectionType::class, array(
-                'entry_type' => RoleType::class,
+                ],
+            ])
+
+            // Phone & manager
+            ->add('phone', null, ['label' => 'label.phone'])
+            ->add('manager', EntityType::class, [
+                'label' => 'label.manager',
+                'class' => Employee::class,
+                // TODO choices
+                'choices' => [],
+            ])
+
+            // Roles
+            ->add('roles', EntityType::class, [
+                'label' => 'label.roles',
+                'class' => Role::class,
+                'multiple' => true,
+            ])
+
+            // Work mode
+            ->add('workMode', ChoiceType::class, [
+                'label' => 'label.workmode',
+                'choices' => [
+                    'workmode.default' => Employee::WORKMODE_DEFAULT,
+                    'workmode.custom' => Employee::WORKMODE_CUSTOM,
+                ],
+            ])
+
+            // Work days
+            ->add('employeeDays', CollectionType::class, [
+                'label' => 'label.employee_days',
+                'entry_type' => EmployeeDayType::class,
+                'entry_options' => ['label' => false],
                 'allow_add' => true,
-            ))
-            ->add('workMode', ChoiceType::class, array(
-                'choices' => array(
-                    'workmode.default' => $this->getParameter('rapier.work_modes')['default'],
-                    'workmode.custom' => $this->getParameter('rapier.work_modes')['custom'],
-                ),
-            ));
+                'allow_delete' => true,
+                'by_reference' => false,
+            ]);
     }
 
     /**
@@ -54,9 +78,13 @@ class EmployeeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Employee',
-        ));
+        $resolver
+            ->setDefaults([
+                'data_class' => Employee::class,
+            ]);
+        /*->setRequired([
+            'employee_manager'
+        ]);*/
     }
 
     /**
@@ -65,10 +93,5 @@ class EmployeeType extends AbstractType
     public function getBlockPrefix()
     {
         return 'appbundle_employee';
-    }
-
-    private function getParameter(string $id)
-    {
-        return $this->container->getParameter($id);
     }
 }

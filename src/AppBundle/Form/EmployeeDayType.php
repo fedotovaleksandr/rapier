@@ -2,7 +2,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\EmployeeDay;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,10 +16,21 @@ class EmployeeDayType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('employee')
-            ->add('day')
-            ->add('startTime')
-            ->add('endTime');
+        $builder
+            // Work day
+            ->add('day', IntegerType::class)
+
+            // Start time
+            ->add('startTime', TimeType::class, [
+                'label' => 'label.since',
+                'widget' => 'single_text',
+            ])
+
+            // End time
+            ->add('endTime', TimeType::class, [
+                'label' => 'label.till',
+                'widget' => 'single_text',
+            ]);
     }
 
     /**
@@ -24,9 +38,9 @@ class EmployeeDayType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\EmployeeDay',
-        ));
+        $resolver->setDefaults([
+            'data_class' => EmployeeDay::class,
+        ]);
     }
 
     /**

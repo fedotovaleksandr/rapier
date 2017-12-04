@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +15,9 @@ class RoleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')->add('employees');
+        $builder
+            ->add('title', null, ['label' => 'label.title'])
+            ->add('description', TextareaType::class, ['label' => 'label.description']);
     }
 
     /**
@@ -21,9 +25,9 @@ class RoleType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Role',
-        ));
+        $resolver->setDefaults([
+            'data_class' => Role::class,
+        ]);
     }
 
     /**
