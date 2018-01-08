@@ -143,6 +143,8 @@ class Employee
     }
 
     /**
+     * <strong>!!! Calls User::setEmployee()</strong>.
+     *
      * @param User $user
      */
     public function setUser(User $user)
@@ -264,6 +266,8 @@ class Employee
     }
 
     /**
+     * <strong>!!! Calls Employee::setManager()</strong>.
+     *
      * @param Employee $employee
      *
      * @return bool
@@ -274,8 +278,9 @@ class Employee
 
         if (!$this->isManagerOf($employee)) {
             $employee->setManager($this);
+            $employees[] = $employee;
 
-            return $employees->add($employee);
+            return true;
         }
 
         return false;
@@ -288,12 +293,12 @@ class Employee
      */
     public function isManagerOf(self $employee): bool
     {
-        $manager = $employee->getManager();
+        $manager = $employee->manager;
         if (is_null($manager)) {
             return false;
         }
 
-        return $this->getId() === $manager->getId();
+        return $this->id === $manager->id;
     }
 
     /**
@@ -305,6 +310,8 @@ class Employee
     }
 
     /**
+     * <strong>!!! Calls EmployeeDay::setEmployee()</strong>.
+     *
      * @param EmployeeDay[]|ArrayCollection $employeeDays
      */
     public function setEmployeeDays($employeeDays)
@@ -332,6 +339,8 @@ class Employee
     }
 
     /**
+     * <strong>!!! Calls Role::addEmployee()</strong>.
+     *
      * @param Role $role
      *
      * @return bool
@@ -341,8 +350,9 @@ class Employee
         $roles = &$this->roles;
         if (!$this->hasRole($role->getId())) {
             $role->addEmployee($this);
+            $roles[] = $role;
 
-            return $roles->add($role);
+            return true;
         }
 
         return false;
@@ -360,11 +370,13 @@ class Employee
         }
 
         $roles = &$this->roles;
-        $idComp = function ($i, $role) use ($roleId) {
-            return $role->getId() === $roleId;
-        };
+        foreach ($roles as $role) {
+            if ($role->getId() === $roleId) {
+                return true;
+            }
+        }
 
-        return $roles->exists($idComp);
+        return false;
     }
 
     /**

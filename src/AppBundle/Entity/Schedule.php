@@ -143,6 +143,8 @@ class Schedule
     }
 
     /**
+     * <strong>!!! Calls Event::setSchedule()</strong>.
+     *
      * @param Event $event
      *
      * @return bool
@@ -150,8 +152,9 @@ class Schedule
     public function addEvent(Event $event): bool
     {
         $event->setSchedule($this);
+        $this->events[] = $event;
 
-        return $this->events->add($event);
+        return true;
     }
 
     /**
@@ -162,11 +165,12 @@ class Schedule
     public function removeEvent(int $id): bool
     {
         $events = &$this->events;
-        $count = $events->count();
 
-        for ($i = 0; $i < $count; ++$i) {
-            if ($events[$i]->getId() === $id) {
-                return $events->remove($i);
+        foreach ($events as $k => $event) {
+            if ($event->getId() === $id) {
+                unset($events[$k]);
+
+                return true;
             }
         }
 

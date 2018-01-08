@@ -114,7 +114,9 @@ class Role
     {
         $employees = &$this->employees;
         if (!$this->hasEmployee($employee->getId())) {
-            return $employees->add($employee);
+            $employees[] = $employee;
+
+            return true;
         }
 
         return false;
@@ -132,11 +134,13 @@ class Role
         }
 
         $employees = &$this->employees;
-        $idComp = function ($i, $employee) use ($employeeId) {
-            return $employee->getId() === $employeeId;
-        };
+        foreach ($employees as $employee) {
+            if ($employee->getId() === $employeeId) {
+                return true;
+            }
+        }
 
-        return $employees->exists($idComp);
+        return false;
     }
 
     /**

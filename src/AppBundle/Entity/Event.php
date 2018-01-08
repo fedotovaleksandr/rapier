@@ -59,6 +59,12 @@ class Event
     protected $duration;
 
     /**
+     * @var \DateTimeInterface|null
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $deadLine;
+
+    /**
      * @var int
      * @ORM\Column(type="smallint")
      */
@@ -78,10 +84,16 @@ class Event
 
     /**
      * @var Employee
-     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="ownEvents")
      * @ORM\JoinColumn(name="owner_id", nullable=false)
      */
     protected $owner;
+
+    /**
+     * @var \DateTimeInterface
+     * @ORM\Column(type="datetime")
+     */
+    protected $creationDate;
 
     /**
      * @var Employee|null
@@ -122,6 +134,7 @@ class Event
     {
         $this->eventDays = new ArrayCollection();
         $this->eventLogs = new ArrayCollection();
+        $this->creationDate = new \DateTime();
     }
 
     /**
@@ -197,6 +210,22 @@ class Event
     }
 
     /**
+     * @return \DateTimeInterface|null
+     */
+    public function getDeadLine(): ?\DateTimeInterface
+    {
+        return $this->deadLine;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $deadLine
+     */
+    public function setDeadLine(?\DateTimeInterface $deadLine)
+    {
+        $this->deadLine = $deadLine;
+    }
+
+    /**
      * @return int|null
      */
     public function getPeriod(): ?int
@@ -261,6 +290,22 @@ class Event
     }
 
     /**
+     * @return \DateTimeInterface|null
+     */
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param \DateTimeInterface $creationDate
+     */
+    public function setCreationDate(\DateTimeInterface $creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
      * @return Employee|null
      */
     public function getEmployee(): ?Employee
@@ -317,6 +362,8 @@ class Event
     }
 
     /**
+     * <strong>!!! Calls EventDay::setEvent()</strong>.
+     *
      * @param EventDay[]|ArrayCollection $eventDays
      */
     public function setEventDays($eventDays)
@@ -344,6 +391,8 @@ class Event
     }
 
     /**
+     * <strong>!!! Calls EventLog::setEvent()</strong>.
+     *
      * @param EventLog $eventLog
      *
      * @return bool
@@ -351,7 +400,8 @@ class Event
     public function addEventLog(EventLog $eventLog): bool
     {
         $eventLog->setEvent($this);
+        $this->eventLogs[] = $eventLog;
 
-        return $this->eventLogs->add($eventLog);
+        return true;
     }
 }
