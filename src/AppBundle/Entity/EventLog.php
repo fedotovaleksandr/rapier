@@ -21,7 +21,7 @@ class EventLog
     protected $id;
 
     /**
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|\DateTime
      * @ORM\Column(type="datetime")
      */
     protected $timeInstant;
@@ -45,7 +45,7 @@ class EventLog
     protected $action;
 
     /**
-     * @var \DateTimeInterface|null
+     * @var \DateTimeInterface|\DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $startTime;
@@ -98,11 +98,11 @@ class EventLog
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getTimeInstant(): ?\DateTimeInterface
     {
-        return $this->timeInstant;
+        return clone ($this->timeInstant);
     }
 
     /**
@@ -110,7 +110,7 @@ class EventLog
      */
     public function setTimeInstant(\DateTimeInterface $timeInstant)
     {
-        $this->timeInstant = $timeInstant;
+        $this->timeInstant = clone $timeInstant;
     }
 
     /**
@@ -146,11 +146,11 @@ class EventLog
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->startTime;
+        return clone ($this->startTime);
     }
 
     /**
@@ -158,7 +158,7 @@ class EventLog
      */
     public function setStartTime(?\DateTimeInterface $startTime)
     {
-        $this->startTime = $startTime;
+        $this->startTime = clone $startTime;
     }
 
     /**

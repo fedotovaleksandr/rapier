@@ -1,30 +1,29 @@
 <?php
-
 namespace AppBundle\Model\Manager;
-
+use AppBundle\Entity\Employee;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
 class EmployeeManager
 {
     /**
-     * @var EntityRepository
-     */
-    private $roleRepository;
-    /**
      * @var EntityManager
      */
     private $entityManager;
 
     /**
+     * @var EntityRepository
+     */
+    private $empRepo;
+
+    /**
      * EmployeeManager constructor.
      *
-     * @param EntityRepository $roleRepository
      * @param EntityManager    $entityManager
      */
-    public function __construct(EntityRepository $roleRepository, EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
-        $this->roleRepository = $roleRepository;
         $this->entityManager = $entityManager;
+        $this->empRepo = $entityManager->getRepository(Employee::class);
     }
 }

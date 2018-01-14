@@ -11,14 +11,19 @@ services:
     app.manager.employee_manager:
         class: AppBundle\Model\Manager\EmployeeManager
         arguments:
-            - "@app.repository.role"
             - "@doctrine.orm.entity_manager"
 
-    app.repository.role:
-        class: Doctrine\ORM\EntityRepository
-        factory: ["@doctrine.orm.entity_manager", getRepository]
+    app.manager.event_manager:
+        class: AppBundle\Model\Manager\EventManager
         arguments:
-            - "AppBundle:Role"
+            - "@doctrine.orm.entity_manager"
+
+    app.datafixtures.testdata:
+        class: AppBundle\DataFixtures\TestDataFixture
+        arguments:
+            - "@app.manager.event_manager"
+        tags:
+            - {name: "doctrine.fixture.orm" }
 
     app.security.voter.employee:
         class: AppBundle\Security\Voter\EmployeeVoter

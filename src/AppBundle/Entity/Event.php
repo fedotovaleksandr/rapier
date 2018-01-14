@@ -47,7 +47,7 @@ class Event
     protected $description;
 
     /**
-     * @var \DateTimeInterface|null
+     * @var \DateTimeInterface|\DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $startDate;
@@ -59,7 +59,7 @@ class Event
     protected $duration;
 
     /**
-     * @var \DateTimeInterface|null
+     * @var \DateTimeInterface|\DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $deadLine;
@@ -90,7 +90,7 @@ class Event
     protected $owner;
 
     /**
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|\DateTime
      * @ORM\Column(type="datetime")
      */
     protected $creationDate;
@@ -178,11 +178,11 @@ class Event
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return clone ($this->startDate);
     }
 
     /**
@@ -190,7 +190,7 @@ class Event
      */
     public function setStartDate(?\DateTimeInterface $startDate)
     {
-        $this->startDate = $startDate;
+        $this->startDate = clone $startDate;
     }
 
     /**
@@ -210,11 +210,11 @@ class Event
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getDeadLine(): ?\DateTimeInterface
     {
-        return $this->deadLine;
+        return clone ($this->deadLine);
     }
 
     /**
@@ -222,7 +222,7 @@ class Event
      */
     public function setDeadLine(?\DateTimeInterface $deadLine)
     {
-        $this->deadLine = $deadLine;
+        $this->deadLine = clone $deadLine;
     }
 
     /**
@@ -290,11 +290,11 @@ class Event
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getCreationDate(): ?\DateTimeInterface
     {
-        return $this->creationDate;
+        return clone ($this->creationDate);
     }
 
     /**
@@ -302,7 +302,7 @@ class Event
      */
     public function setCreationDate(\DateTimeInterface $creationDate)
     {
-        $this->creationDate = $creationDate;
+        $this->creationDate = clone $creationDate;
     }
 
     /**

@@ -30,13 +30,13 @@ class Schedule
     protected $description;
 
     /**
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|\DateTime
      * @ORM\Column(type="datetime")
      */
     protected $startDate;
 
     /**
-     * @var \DateTimeInterface
+     * @var \DateTimeInterface|\DateTime
      * @ORM\Column(type="datetime")
      */
     protected $endDate;
@@ -95,11 +95,11 @@ class Schedule
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return clone ($this->startDate);
     }
 
     /**
@@ -107,15 +107,15 @@ class Schedule
      */
     public function setStartDate(\DateTimeInterface $startDate)
     {
-        $this->startDate = $startDate;
+        $this->startDate = clone $startDate;
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface|\DateTime|null
      */
     public function getEndDate(): ?\DateTimeInterface
     {
-        return $this->endDate;
+        return clone ($this->endDate);
     }
 
     /**
@@ -123,7 +123,7 @@ class Schedule
      */
     public function setEndDate(\DateTimeInterface $endDate)
     {
-        $this->endDate = $endDate;
+        $this->endDate = clone $endDate;
     }
 
     /**
