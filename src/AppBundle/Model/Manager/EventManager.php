@@ -1,5 +1,7 @@
 <?php
+
 namespace AppBundle\Model\Manager;
+
 use AppBundle\Entity\Employee;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Schedule;
@@ -22,7 +24,7 @@ class EventManager
     /**
      * EmployeeManager constructor.
      *
-     * @param EntityManager    $entityManager
+     * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {
@@ -31,8 +33,8 @@ class EventManager
     }
 
     /**
-     * @param Employee $employee
-     * @param Schedule|null $schedule
+     * @param Employee                     $employee
+     * @param Schedule|null                $schedule
      * @param Event[]|ArrayCollection|null $events
      *
      * @return Event[]|ArrayCollection
@@ -48,16 +50,18 @@ class EventManager
             $scheduleId = $schedule->getId();
             $criteria['schedule'] = $scheduleId;
         }
-        if (is_null($events))
+        if (is_null($events)) {
             return $this->evRepo->findBy($criteria);
+        }
 
         $result = new ArrayCollection();
         foreach ($events as $event) {
             $evEmployee = $event->getEmployee();
             $evSchedule = $event->getSchedule();
             if ($evEmployee->getId() === $employeeId
-                && $evSchedule->getId() === $scheduleId)
+                && $evSchedule->getId() === $scheduleId) {
                 $result[] = $event;
+            }
         }
 
         return $result;

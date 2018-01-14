@@ -28,14 +28,14 @@ class TestDataFixture extends Fixture implements ContainerAwareInterface
     private $evManager;
 
     /**
-     * Necessary to load fixture with custom services.yml
+     * Necessary to load fixture with custom services.yml.
      *
      * @var ContainerInterface
      */
     private $container;
 
     /**
-     * Necessary to load fixture with custom services.yml
+     * Necessary to load fixture with custom services.yml.
      *
      * @param ContainerInterface|null $container
      */
@@ -126,8 +126,8 @@ class TestDataFixture extends Fixture implements ContainerAwareInterface
                 do {
                     $startDate = self::rndElem($schedDays);
                     $startTime = self::rndElem($hours);
-                    $startHour = (int)$startTime->format('H');
-                    $startMin = (int)$startTime->format('i');
+                    $startHour = (int) $startTime->format('H');
+                    $startMin = (int) $startTime->format('i');
 
                     $startDate->setTime($startHour, $startMin);
                     $event->setStartDate($startDate);

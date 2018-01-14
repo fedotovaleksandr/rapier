@@ -182,7 +182,7 @@ class Event
      */
     public function getStartDate(): ?\DateTimeInterface
     {
-        return clone ($this->startDate);
+        return clone $this->startDate;
     }
 
     /**
@@ -214,7 +214,7 @@ class Event
      */
     public function getDeadLine(): ?\DateTimeInterface
     {
-        return clone ($this->deadLine);
+        return clone $this->deadLine;
     }
 
     /**
@@ -294,7 +294,7 @@ class Event
      */
     public function getCreationDate(): ?\DateTimeInterface
     {
-        return clone ($this->creationDate);
+        return clone $this->creationDate;
     }
 
     /**

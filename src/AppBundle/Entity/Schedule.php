@@ -99,7 +99,7 @@ class Schedule
      */
     public function getStartDate(): ?\DateTimeInterface
     {
-        return clone ($this->startDate);
+        return clone $this->startDate;
     }
 
     /**
@@ -115,7 +115,7 @@ class Schedule
      */
     public function getEndDate(): ?\DateTimeInterface
     {
-        return clone ($this->endDate);
+        return clone $this->endDate;
     }
 
     /**

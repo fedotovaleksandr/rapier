@@ -1,5 +1,7 @@
 <?php
+
 namespace AppBundle\Model\Manager;
+
 use AppBundle\Entity\Employee;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -19,7 +21,7 @@ class EmployeeManager
     /**
      * EmployeeManager constructor.
      *
-     * @param EntityManager    $entityManager
+     * @param EntityManager $entityManager
      */
     public function __construct(EntityManager $entityManager)
     {

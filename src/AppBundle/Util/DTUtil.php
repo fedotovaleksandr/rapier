@@ -1,11 +1,16 @@
 <?php
+
 namespace AppBundle\Util;
+
 use Psr\Log\InvalidArgumentException;
 
 class DTUtil
 {
     private const DT_FMT = 'Y/m/d H:i';
-    private function __construct() {}
+
+    private function __construct()
+    {
+    }
 
     /**
      * @param \DateTimeInterface $start1
@@ -46,10 +51,11 @@ class DTUtil
     /**
      * @param \DateTimeInterface $start
      * @param \DateTimeInterface $end
-     * @param bool $returns if true, return false instead of
-     *                      throwing an exception
+     * @param bool               $returns if true, return false instead of
+     *                                    throwing an exception
      *
      * @return bool
+     *
      * @throws InvalidArgumentException
      */
     public static function checkValidInterval(
@@ -57,8 +63,9 @@ class DTUtil
         bool $returns = false)
     {
         $valid = $start <= $end;
-        if ($valid)
+        if ($valid) {
             return true;
+        }
 
         if (!$returns) {
             throw new InvalidArgumentException(
@@ -73,7 +80,7 @@ class DTUtil
     /**
      * @param \DateTimeInterface $start
      * @param \DateTimeInterface $end
-     * @param string $fmt
+     * @param string             $fmt
      *
      * @return string
      */
