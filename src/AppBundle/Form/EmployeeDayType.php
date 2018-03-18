@@ -26,26 +26,23 @@ class EmployeeDayType extends AbstractType
         ]);
 
         $builder
-            // Work day
             ->add('day', ChoiceType::class, [
-                    'label' => 'Day of week',
-                    'choices' => [
-                        EmployeeDay::MON,
-                        EmployeeDay::TUE,
-                        EmployeeDay::WED,
-                        EmployeeDay::THU,
-                        EmployeeDay::FRI,
-                        EmployeeDay::SAT,
-                        EmployeeDay::SUN,
-                    ],
-                    'constraints' => [new NotBlank()]]
-            )
-            // Start time
+                'label' => 'Day of week',
+                'choices' => [
+                    EmployeeDay::MON,
+                    EmployeeDay::TUE,
+                    EmployeeDay::WED,
+                    EmployeeDay::THU,
+                    EmployeeDay::FRI,
+                    EmployeeDay::SAT,
+                    EmployeeDay::SUN,
+                ],
+                'constraints' => [new NotBlank()]
+            ])
             ->add('startTime', TimeType::class, [
                 'label' => 'label.since',
                 'widget' => 'single_text',
             ])
-            // End time
             ->add('endTime', TimeType::class, [
                 'label' => 'label.till',
                 'widget' => 'single_text',
