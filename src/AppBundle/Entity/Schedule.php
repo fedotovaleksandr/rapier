@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ScheduleRepository")
  */
 class Schedule
 {
@@ -134,10 +134,14 @@ class Schedule
         return $this->events;
     }
 
-    public function getSortedByStartDateEvents(): array {
+    /**
+     * @return array
+     */
+    public function getSortedByStartDateEvents(): array
+    {
         $arr = $this->events->toArray();
 
-        usort($arr, function (Event $first,Event $second){
+        usort($arr, function (Event $first, Event $second) {
             return $first->getStartDate() <=> $second->getStartDate();
         });
 

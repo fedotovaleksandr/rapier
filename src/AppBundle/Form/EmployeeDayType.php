@@ -41,8 +41,7 @@ class EmployeeDayType extends AbstractType
                     'constraints' => [new NotBlank()]]
             )
             // Start time
-            ->
-            add('startTime', TimeType::class, [
+            ->add('startTime', TimeType::class, [
                 'label' => 'label.since',
                 'widget' => 'single_text',
             ])

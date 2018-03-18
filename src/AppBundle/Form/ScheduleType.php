@@ -33,7 +33,7 @@ class ScheduleType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('events', EntityType::class, [
-                'label'=>'Events',
+                'label' => 'Events',
                 'choice_label' => 'getTitle',
                 'attr' => ['class' => 'select2_multiple'],
                 'class' => Event::class,
