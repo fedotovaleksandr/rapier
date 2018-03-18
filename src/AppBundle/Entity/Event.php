@@ -404,4 +404,16 @@ class Event
 
         return true;
     }
+
+    public function getStatusLabel(): string{
+        switch ($this->status) {
+            case  0: return 'STATUS_DRAFT';
+            case 10: return 'STATUS_OPEN';
+            case 20: return 'STATUS_WORK';
+            case 30: return 'STATUS_FINISH';
+            case 40: return 'STATUS_CLOSED';
+        }
+
+        return 'UNKNOW';
+    }
 }

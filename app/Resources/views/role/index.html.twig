@@ -3,39 +3,34 @@
 {% block body %}
     <h1>Roles list</h1>
 
-    <table>
+    <ul>
+        <a class="btn btn-success" href="{{ path('role_new') }}">Create a new role</a>
+
+    </ul>
+    <table id="datatable" class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for role in roles %}
             <tr>
                 <td><a href="{{ path('role_show', { 'id': role.id }) }}">{{ role.id }}</a></td>
-                <td>{{ role.title }}</td>
+                <td>{{ role.roleName }}</td>
                 <td>{{ role.description }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('role_show', { 'id': role.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('role_edit', { 'id': role.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a class="btn btn-default" href="{{ path('role_show', { 'id': role.id }) }}">show</a>
+
+                    <a class="btn btn-primary" href="{{ path('role_edit', { 'id': role.id }) }}">edit</a>
+
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('role_new') }}">Create a new role</a>
-        </li>
-    </ul>
 {% endblock %}

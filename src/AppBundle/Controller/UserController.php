@@ -68,7 +68,7 @@ class UserController extends Controller
 
         return $this->render('user/edit.html.twig', array(
             'user' => $user,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

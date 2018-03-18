@@ -94,7 +94,7 @@ class EmployeeDayController extends Controller
 
         return $this->render('employeeday/edit.html.twig', array(
             'employeeDay' => $employeeDay,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

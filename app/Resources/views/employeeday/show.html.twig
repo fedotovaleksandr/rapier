@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Employeeday</h1>
 
-    <table>
+    <table  id="datatable-keytable" class="table">
         <tbody>
             <tr>
                 <th>Day</th>
@@ -22,14 +22,14 @@
 
     <ul>
         <li>
-            <a href="{{ path('employeeday_index') }}">Back to the list</a>
+            <a  class="btn btn-default" href="{{ path('employeeday_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('employeeday_edit', { 'day': employeeDay.day }) }}">Edit</a>
+            <a  class="btn btn-primary" href="{{ path('employeeday_edit', { 'day': employeeDay.day }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input  class="btn btn-danger" type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>
