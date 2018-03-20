@@ -15,17 +15,40 @@ class Event
     public const WT_MAJOR = 7;
     public const WT_CRITICAL = 10;
 
+    const WT_TITLES = [
+        self::WT_MINOR => 'Minor',
+        self::WT_MEDIUM => 'Medium',
+        self::WT_MAJOR => 'Major',
+        self::WT_CRITICAL => 'Critical',
+    ];
+
     public const STATUS_DRAFT = 0;
     public const STATUS_OPEN = 10;
     public const STATUS_WORK = 20;
     public const STATUS_FINISH = 30;
     public const STATUS_CLOSED = 40;
 
+    const STATUS_TITLES = [
+        self::STATUS_DRAFT => 'DRAFT',
+        self::STATUS_OPEN => 'OPEN',
+        self::STATUS_WORK => 'WORK',
+        self::STATUS_FINISH => 'FINISH',
+        self::STATUS_CLOSED => 'CLOSED',
+    ];
+
     public const PERIOD_ONCE = 0;
     public const PERIOD_DAY = 10;
     public const PERIOD_WEEK = 20;
     public const PERIOD_BIWEEK = 30;
     public const PERIOD_MONTH = 40;
+
+    const PERIOD_TITLES = [
+        self::PERIOD_ONCE => 'Once',
+        self::PERIOD_DAY => 'Day',
+        self::PERIOD_WEEK => 'Week',
+        self::PERIOD_BIWEEK => 'Biweek',
+        self::PERIOD_MONTH => 'Month',
+    ];
 
     /**
      * @ORM\Id
@@ -241,12 +264,24 @@ class Event
         $this->period = $period;
     }
 
+    public function getPeriodLabel():string {
+        return self::PERIOD_TITLES[$this->period];
+    }
+
     /**
      * @return int|null
      */
     public function getImportance(): ?int
     {
         return $this->importance;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImportanceLabel(): string
+    {
+        return self::WT_TITLES[$this->importance];
     }
 
     /**
@@ -410,19 +445,6 @@ class Event
      */
     public function getStatusLabel(): string
     {
-        switch ($this->status) {
-            case  0:
-                return 'STATUS_DRAFT';
-            case 10:
-                return 'STATUS_OPEN';
-            case 20:
-                return 'STATUS_WORK';
-            case 30:
-                return 'STATUS_FINISH';
-            case 40:
-                return 'STATUS_CLOSED';
-        }
-
-        return 'UNKNOW';
+        return self::STATUS_TITLES[$this->status];
     }
 }

@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block body %}
     <h2>Employee creation</h2>
 
@@ -10,12 +10,12 @@
             {{ form_widget(form.lastName, {'attr':{'class':'abcinput'}}) }}
         </div>
         <!-- TODO -->
-        <input type="submit" value="action.save" />
+        <input  class="btn btn-success" type="submit" value="action.save" />
     </form>
 
     <ul>
         <li>
-            <a href="{{ path('employee_index') }}">Back to the list</a>
+            <a  class="btn btn-default" href="{{ path('employee_index') }}">Back to the list</a>
         </li>
     </ul>
 {% endblock %}

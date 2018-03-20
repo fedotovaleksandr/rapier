@@ -19,33 +19,23 @@ class EmployeeDayType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('employee', EntityType::class, [
-            'choice_label' => 'fullName',
-            'attr' => ['class' => 'select2_single'],
-            'class' => Employee::class,
-        ]);
-
         $builder
             ->add('day', ChoiceType::class, [
                 'label' => 'Day of week',
-                'choices' => [
-                    EmployeeDay::MON,
-                    EmployeeDay::TUE,
-                    EmployeeDay::WED,
-                    EmployeeDay::THU,
-                    EmployeeDay::FRI,
-                    EmployeeDay::SAT,
-                    EmployeeDay::SUN,
-                ],
+                'choices' => array_flip(EmployeeDay::DAY_TITLES),
                 'constraints' => [new NotBlank()]
             ])
             ->add('startTime', TimeType::class, [
                 'label' => 'label.since',
                 'widget' => 'single_text',
+                'empty_data' => '08:00',
+                'placeholder' => '08:00',
             ])
             ->add('endTime', TimeType::class, [
                 'label' => 'label.till',
                 'widget' => 'single_text',
+                'empty_data' => '18:00',
+                'placeholder' => '18:00',
             ]);
     }
 

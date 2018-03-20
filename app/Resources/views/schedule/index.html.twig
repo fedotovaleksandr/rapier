@@ -4,7 +4,7 @@
     <h1>Schedules list</h1>
     <ul>
         <li>
-            <a  class="btn btn-success" href="{{ path('schedule_new') }}">Create a new schedule</a>
+            <a class="btn btn-success" href="{{ path('schedule_new') }}">Create a new schedule</a>
         </li>
     </ul>
     <table id="datatable" class="table schedule-table" data-ordering="false">
@@ -27,14 +27,8 @@
                 <td>{% if schedule.startDate %}{{ schedule.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if schedule.endDate %}{{ schedule.endDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a class="btn btn-default" href="{{ path('schedule_show', { 'id': schedule.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a class="btn btn-primary" href="{{ path('schedule_edit', { 'id': schedule.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a class="btn btn-default" href="{{ path('schedule_show', { 'id': schedule.id }) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('schedule_edit', { 'id': schedule.id }) }}">edit</a>
                 </td>
             </tr>
             <tr>
@@ -50,6 +44,7 @@
                             <th>Id</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>Employee</th>
                             <th>Startdate</th>
                             <th>Duration</th>
                             <th>Importance</th>
@@ -60,12 +55,13 @@
                         {% for event in schedule.getSortedByStartDateEvents() %}
                             <tr>
                                 <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.id }}</a></td>
-                                <td>{{ event.title }}</td>
+                                <td><a class="text-primary" href="{{ path('event_show', { 'id': event.id }) }}">{{ event.title }}</a></td>
                                 <td>{{ event.description }}</td>
+                                <td><a class="text-primary" href="{{ path('employee_show', { 'id': event.employee.id }) }}">{{ event.employee.fullName }}</a></td>
                                 <td>{% if event.startDate %}{{ event.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                                 <td>{{ event.duration }}</td>
-                                <td>{{ event.importance }}</td>
-                                <td>{{ event.status }}</td>
+                                <td>{{ event.importanceLabel }}</td>
+                                <td>{{ event.statusLabel }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

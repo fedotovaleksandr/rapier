@@ -13,6 +13,11 @@ class Employee
     public const WORKMODE_DEFAULT = 0;
     public const WORKMODE_CUSTOM = 1;
 
+    public const  WORKMODE_LABELS = [
+        self::WORKMODE_DEFAULT => 'Default',
+        self::WORKMODE_CUSTOM =>'Custom',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -224,6 +229,15 @@ class Employee
     {
         return $this->workMode;
     }
+
+    /**
+     * @return string
+     */
+    public function getWorkModeLabel(): string
+    {
+        return self::WORKMODE_LABELS[$this->workMode];
+    }
+
 
     /**
      * @param int $workMode

@@ -4,11 +4,14 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Employee;
 use AppBundle\Entity\Role;
+use AppBundle\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +21,7 @@ class EmployeeType extends AbstractType
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    {   $currentEmployee = $options['data'];
         $builder
             // Name & e-mail
             ->add('lastName', null, ['label' => 'label.lastname'])
@@ -31,6 +34,7 @@ class EmployeeType extends AbstractType
             // Gender
             ->add('gender', ChoiceType::class, [
                 'label' => 'label.gender',
+                'attr' => ['class' => 'select2_single'],
                 'choices' => [
                     'gender.male' => 'M',
                     'gender.female' => 'F',
@@ -38,24 +42,38 @@ class EmployeeType extends AbstractType
             ])
 
             // Phone & manager
-            ->add('phone', null, ['label' => 'label.phone'])
+            ->add('phone', TelType::class, ['label' => 'label.phone'])
             ->add('manager', EntityType::class, [
                 'label' => 'label.manager',
                 'class' => Employee::class,
-                // TODO choices
-                'choices' => [],
+                'attr' => ['class' => 'select2_single'],
+                'query_builder' => function( EntityRepository $repository) use ($currentEmployee){
+                    $qb = $repository->createQueryBuilder('e')
+                        ->leftJoin('e.user','u')
+                        ->where('u.roles LIKE :role')
+                        ->setParameter('role',
+                            sprintf('%%"%s"%%',User::ROLE_MANAGER)
+                        );
+                    if ($currentEmployee->getId()) {
+                        $qb->andWhere('e.id != :curId')
+                            ->setParameter('curId',$currentEmployee->getId());
+                    }
+                    return $qb;
+                },
             ])
 
             // Roles
             ->add('roles', EntityType::class, [
                 'label' => 'label.roles',
                 'class' => Role::class,
+                'attr' => ['class' => 'select2_multiple'],
                 'multiple' => true,
             ])
 
             // Work mode
             ->add('workMode', ChoiceType::class, [
                 'label' => 'label.workmode',
+                'attr' => ['class' => 'select2_single'],
                 'choices' => [
                     'workmode.default' => Employee::WORKMODE_DEFAULT,
                     'workmode.custom' => Employee::WORKMODE_CUSTOM,
@@ -66,10 +84,12 @@ class EmployeeType extends AbstractType
             ->add('employeeDays', CollectionType::class, [
                 'label' => 'label.employee_days',
                 'entry_type' => EmployeeDayType::class,
-                'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'entry_options' => ['label'=>false],
+                'prototype' => true,
                 'by_reference' => false,
+                'attr' => ['class' => 'collection-type'],
             ]);
     }
 
@@ -82,9 +102,6 @@ class EmployeeType extends AbstractType
             ->setDefaults([
                 'data_class' => Employee::class,
             ]);
-        /*->setRequired([
-            'employee_manager'
-        ]);*/
     }
 
     /**

@@ -26,22 +26,21 @@ class EventType extends AbstractType
             // Title & description
             ->add('title', null, ['label' => 'label.title'])
             ->add('description', null, ['label' => 'label.description'])
-
             // Start date
             ->add('startDate', DateTimeType::class, [
                 'label' => 'label.start_date',
                 'widget' => 'single_text',
             ])
-
             // Duration & importance
             ->add('duration', IntegerType::class)
             ->add('importance', ChoiceType::class, [
-                'event.wt.minor' => Event::WT_MINOR,
-                'event.wt.medium' => Event::WT_MEDIUM,
-                'event.wt.major' => Event::WT_MAJOR,
-                'event.wt.critical' => Event::WT_CRITICAL,
+                'choices' => [
+                    'event.wt.minor' => Event::WT_MINOR,
+                    'event.wt.medium' => Event::WT_MEDIUM,
+                    'event.wt.major' => Event::WT_MAJOR,
+                    'event.wt.critical' => Event::WT_CRITICAL,
+                ]
             ])
-
             // Status
             ->add('status', ChoiceType::class, [
                 'choices' => [
@@ -52,19 +51,16 @@ class EventType extends AbstractType
                     'event.status.closed' => Event::STATUS_CLOSED,
                 ],
             ])
-
             // Responsible role
             ->add('role', EntityType::class, [
                 'label' => 'label.role',
                 'class' => Role::class,
             ])
-
             ->add('owner', EntityType::class, [
                 'label' => 'label.owner',
                 'class' => Employee::class,
                 'disabled' => true,
             ])
-
             // Responsible employee
             ->add('employee', EntityType::class, [
                 'label' => 'label.responsible',
@@ -72,14 +68,12 @@ class EventType extends AbstractType
                 // TODO choices
                 'choices' => [],
             ])
-
             // Schedule
             ->add('schedule', EntityType::class, [
                 'label' => 'label.schedule',
                 'choice_label' => 'title',
                 'class' => Schedule::class,
             ])
-
             // Days of performing
             // TODO add transformer
             ->add('onDays', ChoiceType::class, [
