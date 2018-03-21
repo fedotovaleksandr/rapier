@@ -98,7 +98,7 @@ class TestDataFixture extends Fixture implements ContainerAwareInterface
         $entityManager->flush();
         $nScheds = count($schedules);
 
-        $nEventsPerSched = 15;
+        $nEventsPerSched = 20;
         $workStart = new \DateTime();
         $workStart->setTime(8, 0);
         $hours = self::getDatesPool('PT1H',
@@ -178,7 +178,7 @@ class TestDataFixture extends Fixture implements ContainerAwareInterface
         $emails = [];
 
         // *** Employees ***
-        $nEmployees = 5;
+        $nEmployees = 10;
         for ($i = 0; $i < $nEmployees; ++$i) {
             // User name & pass
             $user = new User();
@@ -254,7 +254,14 @@ class TestDataFixture extends Fixture implements ContainerAwareInterface
         $sched2->setEndDate(new \DateTime('2018/04/01'));
         $this->entityManager->persist($sched2);
 
-        return [$sched1, $sched2];
+        $sched3 = new Schedule();
+        $sched3->setTitle('April, 2018');
+        $sched3->setDescription('All tasks during April, 2018');
+        $sched3->setStartDate(new \DateTime('2018/04/01'));
+        $sched3->setEndDate(new \DateTime('2018/05/01'));
+        $this->entityManager->persist($sched3);
+
+        return [$sched1, $sched2, $sched3];
     }
 
     /**
