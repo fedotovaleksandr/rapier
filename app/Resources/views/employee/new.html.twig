@@ -4,14 +4,9 @@
     <h2>Employee creation</h2>
 
     {{ form_start(form) }}
-        <div>
-            {{ form_label(form.lastName, 'label.lastname') }}
-            {{ form_errors(form.lastName) }}
-            {{ form_widget(form.lastName, {'attr':{'class':'abcinput'}}) }}
-        </div>
-        <!-- TODO -->
-        <input  class="btn btn-success" type="submit" value="action.save" />
-    </form>
+    {{ form_widget(form) }}
+    <input  class="btn btn-success" type="submit" value="Create" />
+    {{ form_end(form) }}
 
     <ul>
         <li>
@@ -19,3 +14,7 @@
         </li>
     </ul>
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/collection-type.js') }}"></script>
+{% endblock javascripts %}

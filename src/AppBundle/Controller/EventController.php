@@ -41,7 +41,13 @@ class EventController extends Controller
     public function newAction(Request $request)
     {
         $event = new Event();
-        $form = $this->createForm('AppBundle\Form\EventType', $event);
+        $form = $this->createForm('AppBundle\Form\EventType',
+            $event,
+            [
+                'owner' => $this->getUser()->getEmployee(),
+                'em'=>$this->getDoctrine()->getManager()
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,7 +89,12 @@ class EventController extends Controller
     public function editAction(Request $request, Event $event)
     {
         $deleteForm = $this->createDeleteForm($event);
-        $editForm = $this->createForm('AppBundle\Form\EventType', $event);
+        $editForm = $this->createForm(
+            'AppBundle\Form\EventType',
+            $event,
+            ['owner' => $this->getUser()->getEmployee(),
+                'em'=>$this->getDoctrine()->getManager()]
+        );
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

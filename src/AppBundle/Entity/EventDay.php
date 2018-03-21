@@ -28,7 +28,7 @@ class EventDay
     /**
      * @param int $day
      */
-    public function __construct(int $day)
+    public function __construct(int $day = null)
     {
         $this->day = $day;
     }

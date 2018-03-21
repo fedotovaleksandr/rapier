@@ -10,10 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event
 {
-    public const WT_MINOR = 1;
-    public const WT_MEDIUM = 4;
-    public const WT_MAJOR = 7;
-    public const WT_CRITICAL = 10;
+    const WT_MINOR = 1;
+    const WT_MEDIUM = 4;
+    const WT_MAJOR = 7;
+    const WT_CRITICAL = 10;
 
     const WT_TITLES = [
         self::WT_MINOR => 'Minor',
@@ -22,11 +22,11 @@ class Event
         self::WT_CRITICAL => 'Critical',
     ];
 
-    public const STATUS_DRAFT = 0;
-    public const STATUS_OPEN = 10;
-    public const STATUS_WORK = 20;
-    public const STATUS_FINISH = 30;
-    public const STATUS_CLOSED = 40;
+    const STATUS_DRAFT = 0;
+    const STATUS_OPEN = 10;
+    const STATUS_WORK = 20;
+    const STATUS_FINISH = 30;
+    const STATUS_CLOSED = 40;
 
     const STATUS_TITLES = [
         self::STATUS_DRAFT => 'DRAFT',
@@ -36,11 +36,11 @@ class Event
         self::STATUS_CLOSED => 'CLOSED',
     ];
 
-    public const PERIOD_ONCE = 0;
-    public const PERIOD_DAY = 10;
-    public const PERIOD_WEEK = 20;
-    public const PERIOD_BIWEEK = 30;
-    public const PERIOD_MONTH = 40;
+    const PERIOD_ONCE = 0;
+    const PERIOD_DAY = 10;
+    const PERIOD_WEEK = 20;
+    const PERIOD_BIWEEK = 30;
+    const PERIOD_MONTH = 40;
 
     const PERIOD_TITLES = [
         self::PERIOD_ONCE => 'Once',
@@ -205,7 +205,7 @@ class Event
      */
     public function getStartDate(): ?\DateTimeInterface
     {
-        return clone $this->startDate;
+        return $this->startDate ? clone $this->startDate : null;
     }
 
     /**
@@ -237,7 +237,7 @@ class Event
      */
     public function getDeadLine(): ?\DateTimeInterface
     {
-        return clone $this->deadLine;
+        return $this->deadLine ? clone $this->deadLine : null;
     }
 
     /**
@@ -329,7 +329,7 @@ class Event
      */
     public function getCreationDate(): ?\DateTimeInterface
     {
-        return clone $this->creationDate;
+        return $this->creationDate ? clone $this->creationDate : null;
     }
 
     /**

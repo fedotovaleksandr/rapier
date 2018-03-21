@@ -15,7 +15,7 @@ class Employee
 
     public const  WORKMODE_LABELS = [
         self::WORKMODE_DEFAULT => 'Default',
-        self::WORKMODE_CUSTOM =>'Custom',
+        self::WORKMODE_CUSTOM => 'Custom',
     ];
 
     /**
@@ -28,7 +28,7 @@ class Employee
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="User", inversedBy="employee", cascade="all")
-     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
@@ -439,5 +439,17 @@ class Employee
     public function setEventLogs($eventLogs)
     {
         $this->eventLogs = $eventLogs;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->user ? $this->user->getEmail() : null;
+    }
+
+    public function setEmail(string $email)
+    {
+        if ($this->user) {
+            $this->user->setEmail($email);
+        }
     }
 }
