@@ -102,7 +102,7 @@ class EventLog
      */
     public function getTimeInstant(): ?\DateTimeInterface
     {
-        return clone $this->timeInstant;
+        return $this->timeInstant ? clone $this->timeInstant : null;
     }
 
     /**
@@ -150,7 +150,7 @@ class EventLog
      */
     public function getStartTime(): ?\DateTimeInterface
     {
-        return clone $this->startTime;
+        return $this->startTime ? clone $this->startTime : null;
     }
 
     /**

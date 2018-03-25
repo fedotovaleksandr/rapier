@@ -158,4 +158,9 @@ class Role
     {
         $this->events = $events;
     }
+
+    public function __toString(): ?string
+    {
+        return $this->getRoleName();
+    }
 }

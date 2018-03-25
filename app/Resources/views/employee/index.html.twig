@@ -2,18 +2,22 @@
 
 {% block body %}
     <h1>Employees list</h1>
-
-    <table>
+    <ul>
+        <li>
+            <a class="btn btn-success" href="{{ path('employee_new') }}">Create a new employee</a>
+        </li>
+    </ul>
+    <table id="datatable" class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>Gender</th>
-                <th>Phone</th>
-                <th>Workmode</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Lastname</th>
+            <th>Firstname</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Workmode</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for employee in employees %}
@@ -23,25 +27,24 @@
                 <td>{{ employee.firstName }}</td>
                 <td>{{ employee.gender }}</td>
                 <td>{{ employee.phone }}</td>
-                <td>{{ employee.workMode }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('employee_show', { 'id': employee.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('employee_edit', { 'id': employee.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ employee.workModeLabel }}
+                    {% if employee.workMode == constant('AppBundle\\Entity\\Employee::WORKMODE_CUSTOM') %}
+                        <ul>
+                            {% for employeeDay in employee.employeeDays %}
+                            <li>
+                                {{ employeeDay.dayTitle }}: {{ employeeDay.startTime|date('H:i')}}-{{ employeeDay.endTime|date('H:i') }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-default" href="{{ path('employee_show', { 'id': employee.id }) }}">show</a>
+                    <a class="btn btn-primary" href="{{ path('employee_edit', { 'id': employee.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('employee_new') }}">Create a new employee</a>
-        </li>
-    </ul>
 {% endblock %}

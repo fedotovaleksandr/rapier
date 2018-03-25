@@ -1,16 +1,22 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: afedotov
+ * Date: 21.03.18
+ * Time: 22:52.
+ */
 
 namespace AppBundle\Form;
 
 use AppBundle\Entity\EmployeeDay;
+use AppBundle\Entity\EventDay;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class EmployeeDayType extends AbstractType
+class EventDayType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -22,18 +28,6 @@ class EmployeeDayType extends AbstractType
                 'label' => 'Day of week',
                 'choices' => array_flip(EmployeeDay::DAY_TITLES),
                 'constraints' => [new NotBlank()],
-            ])
-            ->add('startTime', TimeType::class, [
-                'label' => 'label.since',
-                'widget' => 'single_text',
-                'empty_data' => '08:00',
-                'placeholder' => '08:00',
-            ])
-            ->add('endTime', TimeType::class, [
-                'label' => 'label.till',
-                'widget' => 'single_text',
-                'empty_data' => '18:00',
-                'placeholder' => '18:00',
             ]);
     }
 
@@ -43,7 +37,7 @@ class EmployeeDayType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => EmployeeDay::class,
+            'data_class' => EventDay::class,
         ]);
     }
 
@@ -52,6 +46,6 @@ class EmployeeDayType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_employeeday';
+        return 'appbundle_eventeday';
     }
 }

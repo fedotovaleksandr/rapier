@@ -99,7 +99,7 @@ class Schedule
      */
     public function getStartDate(): ?\DateTimeInterface
     {
-        return clone $this->startDate;
+        return $this->startDate ? clone $this->startDate : null;
     }
 
     /**
@@ -115,7 +115,7 @@ class Schedule
      */
     public function getEndDate(): ?\DateTimeInterface
     {
-        return clone $this->endDate;
+        return $this->endDate ? clone $this->endDate : null;
     }
 
     /**
@@ -132,6 +132,20 @@ class Schedule
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSortedByStartDateEvents(): array
+    {
+        $arr = $this->events->toArray();
+
+        usort($arr, function (Event $first, Event $second) {
+            return $first->getStartDate() <=> $second->getStartDate();
+        });
+
+        return $arr;
     }
 
     /**

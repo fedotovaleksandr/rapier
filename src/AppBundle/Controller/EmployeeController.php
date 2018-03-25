@@ -96,7 +96,7 @@ class EmployeeController extends Controller
 
         return $this->render('employee/edit.html.twig', array(
             'employee' => $employee,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

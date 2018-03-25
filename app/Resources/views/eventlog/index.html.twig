@@ -3,20 +3,20 @@
 {% block body %}
     <h1>Eventlogs list</h1>
 
-    <table>
+    <table id="datatable" class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Timeinstant</th>
-                <th>Action</th>
-                <th>Starttime</th>
-                <th>Duration</th>
-                <th>Oldstatus</th>
-                <th>Newstatus</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Timeinstant</th>
+            <th>Action</th>
+            <th>Starttime</th>
+            <th>Duration</th>
+            <th>Oldstatus</th>
+            <th>Newstatus</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for eventLog in eventLogs %}
@@ -31,16 +31,12 @@
                 <td>{{ eventLog.oldStatus }}</td>
                 <td>{{ eventLog.newStatus }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('eventlog_show', { 'id': eventLog.id }) }}">show</a>
-                        </li>
-                    </ul>
+                    <a class="btn btn-default" href="{{ path('eventlog_show', { 'id': eventLog.id }) }}">show</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    
+
 {% endblock %}
