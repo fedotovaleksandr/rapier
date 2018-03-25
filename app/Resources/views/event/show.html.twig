@@ -38,14 +38,14 @@
 
     <ul>
         <li>
-            <a href="{{ path('event_index') }}">Back to the list</a>
+            <a  class="btn btn-default"  href="{{ path('event_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('event_edit', { 'id': event.id }) }}">Edit</a>
+            <a  class="btn btn-primary"  href="{{ path('event_edit', { 'id': event.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input  class="btn btn-danger" type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

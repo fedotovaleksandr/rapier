@@ -72,9 +72,10 @@ class EventType extends AbstractType
             ])
             ->add('owner', EntityType::class, [
                 'label' => 'label.owner',
+                'required'=>true,
                 'class' => Employee::class,
-                'data' => $em->getReference(Employee::class,$options['owner']->getId()),
-                //'attr' => ['disabled' => 'true'],
+                'data' => $em->getReference(Employee::class, $options['owner']->getId()),
+                'attr' => ['class' => 'disabled'],
                 'query_builder' => function (EntityRepository $repository) use ($options) {
                     $qb = $repository->createQueryBuilder('e')
                         ->where('e.id = :id')

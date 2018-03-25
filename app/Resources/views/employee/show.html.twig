@@ -27,21 +27,31 @@
             </tr>
             <tr>
                 <th>Workmode</th>
-                <td>{{ employee.workMode }}</td>
+                <td>{{ employee.workModeLabel }}
+                    {% if employee.workMode == constant('AppBundle\\Entity\\Employee::WORKMODE_CUSTOM') %}
+                        <ul>
+                            {% for employeeDay in employee.employeeDays %}
+                                <li>
+                                    {{ employeeDay.dayTitle }}: {{ employeeDay.startTime|date('H:i')}}-{{ employeeDay.endTime|date('H:i') }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>
 
     <ul>
         <li>
-            <a href="{{ path('employee_index') }}">Back to the list</a>
+            <a  class="btn btn-default" href="{{ path('employee_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('employee_edit', { 'id': employee.id }) }}">Edit</a>
+            <a   class="btn btn-primary" href="{{ path('employee_edit', { 'id': employee.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input  class="btn btn-danger" type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

@@ -12,6 +12,9 @@ label.start_date: Start Date
 label.end_date: End Date
 label.since: Since
 label.till: Till
+label.schedule: Schedule
+label.owner: Owner
+label.email: Email
 
 week.mon: Monday
 week.tue: Tuesday
