@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: afedotov
  * Date: 21.03.18
- * Time: 22:52
+ * Time: 22:52.
  */
 
 namespace AppBundle\Form;
@@ -27,7 +27,7 @@ class EventDayType extends AbstractType
             ->add('day', ChoiceType::class, [
                 'label' => 'Day of week',
                 'choices' => array_flip(EmployeeDay::DAY_TITLES),
-                'constraints' => [new NotBlank()]
+                'constraints' => [new NotBlank()],
             ]);
     }
 

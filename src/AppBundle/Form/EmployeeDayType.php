@@ -2,9 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Employee;
 use AppBundle\Entity\EmployeeDay;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
@@ -23,7 +21,7 @@ class EmployeeDayType extends AbstractType
             ->add('day', ChoiceType::class, [
                 'label' => 'Day of week',
                 'choices' => array_flip(EmployeeDay::DAY_TITLES),
-                'constraints' => [new NotBlank()]
+                'constraints' => [new NotBlank()],
             ])
             ->add('startTime', TimeType::class, [
                 'label' => 'label.since',

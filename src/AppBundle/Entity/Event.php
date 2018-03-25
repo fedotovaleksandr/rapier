@@ -264,7 +264,8 @@ class Event
         $this->period = $period;
     }
 
-    public function getPeriodLabel():string {
+    public function getPeriodLabel(): string
+    {
         return self::PERIOD_TITLES[$this->period];
     }
 

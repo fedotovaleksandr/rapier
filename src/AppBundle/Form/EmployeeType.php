@@ -59,6 +59,7 @@ class EmployeeType extends AbstractType
                         $qb->andWhere('e.id != :curId')
                             ->setParameter('curId', $currentEmployee->getId());
                     }
+
                     return $qb;
                 },
             ])
@@ -81,11 +82,12 @@ class EmployeeType extends AbstractType
                         $qb->orWhere('u.id != :curId')
                             ->setParameter('curId', $currentEmployee->getUser()->getId());
                     }
+
                     return $qb;
                 },
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             // Work mode
             ->add('workMode', ChoiceType::class, [

@@ -45,7 +45,7 @@ class EventController extends Controller
             $event,
             [
                 'owner' => $this->getUser()->getEmployee(),
-                'em'=>$this->getDoctrine()->getManager()
+                'em' => $this->getDoctrine()->getManager(),
             ]
         );
         $form->handleRequest($request);
@@ -93,7 +93,7 @@ class EventController extends Controller
             'AppBundle\Form\EventType',
             $event,
             ['owner' => $this->getUser()->getEmployee(),
-                'em'=>$this->getDoctrine()->getManager()]
+                'em' => $this->getDoctrine()->getManager(), ]
         );
         $editForm->handleRequest($request);
 

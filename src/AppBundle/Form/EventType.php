@@ -3,7 +3,6 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Employee;
-use AppBundle\Entity\EmployeeDay;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Role;
 use AppBundle\Entity\Schedule;
@@ -27,7 +26,7 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var EntityManager $em */
-        $em  = $options['em'];
+        $em = $options['em'];
         $builder
             // Title & description
             ->add('title', null, ['label' => 'label.title'])
@@ -46,14 +45,14 @@ class EventType extends AbstractType
                     'event.wt.critical' => Event::WT_CRITICAL,
                 ],
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             ->add('period', ChoiceType::class, [
                 'choices' => array_flip(Event::PERIOD_TITLES),
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(),
+                ],
             ])
             // Status
             ->add('status', ChoiceType::class, [
@@ -72,7 +71,7 @@ class EventType extends AbstractType
             ])
             ->add('owner', EntityType::class, [
                 'label' => 'label.owner',
-                'required'=>true,
+                'required' => true,
                 'class' => Employee::class,
                 'data' => $em->getReference(Employee::class, $options['owner']->getId()),
                 'attr' => ['class' => 'disabled'],
@@ -101,7 +100,7 @@ class EventType extends AbstractType
                 'entry_type' => EventDayType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'entry_options' => ['label'=>false],
+                'entry_options' => ['label' => false],
                 'prototype' => true,
                 'by_reference' => false,
                 'attr' => ['class' => 'collection-type'],
@@ -113,8 +112,8 @@ class EventType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(['owner','em']);
-        $resolver->setAllowedTypes('owner',Employee::class);
+        $resolver->setRequired(['owner', 'em']);
+        $resolver->setAllowedTypes('owner', Employee::class);
         $resolver->setDefaults([
             'data_class' => Event::class,
         ]);

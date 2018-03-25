@@ -238,7 +238,6 @@ class Employee
         return self::WORKMODE_LABELS[$this->workMode];
     }
 
-
     /**
      * @param int $workMode
      */

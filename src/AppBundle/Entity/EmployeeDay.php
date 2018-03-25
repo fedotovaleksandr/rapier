@@ -18,13 +18,13 @@ class EmployeeDay
     public const SUN = 6;
 
     const DAY_TITLES = [
-        EmployeeDay::MON=>'monday' ,
-        EmployeeDay::TUE=>'tuesday' ,
-        EmployeeDay::WED=>'wednesday',
-        EmployeeDay::THU=>'thursday' ,
-        EmployeeDay::FRI=>'friday' ,
-        EmployeeDay::SAT=>'saturday' ,
-        EmployeeDay::SUN=>'sunday' ,
+        self::MON => 'monday',
+        self::TUE => 'tuesday',
+        self::WED => 'wednesday',
+        self::THU => 'thursday',
+        self::FRI => 'friday',
+        self::SAT => 'saturday',
+        self::SUN => 'sunday',
     ];
 
     private const FMT = 'H:i';
@@ -137,7 +137,8 @@ class EmployeeDay
         $this->endTime = $endTime;
     }
 
-    public function getDayTitle(){
+    public function getDayTitle()
+    {
         return self::DAY_TITLES[$this->day];
     }
 }
