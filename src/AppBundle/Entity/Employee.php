@@ -4,9 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
+ * @Serializer\ExclusionPolicy("none")
  */
 class Employee
 {
@@ -22,6 +24,8 @@ class Employee
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Type("int")
+     * @Serializer\Groups({"list"})
      */
     protected $id;
 
@@ -35,24 +39,32 @@ class Employee
     /**
      * @var string
      * @ORM\Column(type="string", length=100)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $lastName;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=100)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $firstName;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=1)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $gender;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=50)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $phone;
 
