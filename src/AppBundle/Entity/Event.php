@@ -4,9 +4,11 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
+ * @Serializer\ExclusionPolicy("none")
  */
 class Event
 {
@@ -54,36 +56,48 @@ class Event
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $id;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $title;
 
     /**
      * @var string|null
      * @ORM\Column(type="string", length=4000, nullable=true)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $description;
 
     /**
      * @var \DateTimeInterface|\DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
+     * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"list"})
      */
     protected $startDate;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @Serializer\Type("int")
+     * @Serializer\Groups({"list"})
      */
     protected $duration;
 
     /**
      * @var \DateTimeInterface|\DateTime|null
      * @ORM\Column(type="datetime", nullable=true)
+     * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"list"})
      */
     protected $deadLine;
 
@@ -264,6 +278,12 @@ class Event
         $this->period = $period;
     }
 
+    /**
+     * @return string
+     * @Serializer\VirtualProperty()
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
+     */
     public function getPeriodLabel(): string
     {
         return self::PERIOD_TITLES[$this->period];
@@ -279,6 +299,9 @@ class Event
 
     /**
      * @return string
+     * @Serializer\VirtualProperty()
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     public function getImportanceLabel(): string
     {
@@ -443,6 +466,9 @@ class Event
 
     /**
      * @return string
+     * @Serializer\VirtualProperty()
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     public function getStatusLabel(): string
     {
