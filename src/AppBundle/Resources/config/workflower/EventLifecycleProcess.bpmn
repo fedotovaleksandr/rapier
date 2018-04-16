@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" exporter="Camunda Modeler" exporterVersion="1.13.0" expressionLanguage="http://www.w3.org/1999/XPath" id="Definitions_13pv7eg" name="" targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+  <bpmn:process id="EventLifecycle" isClosed="false" isExecutable="true" name="EventLifecycle" processType="None">
+    <bpmn:extensionElements>
+      <yaoqiang:description/>
+      <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"/>
+      <yaoqiang:page background="#FFFFFF" horizontalCount="1" verticalCount="1"/>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="TLCStartEvent" isInterrupting="true" parallelMultiple="false">
+      <bpmn:outgoing>TLCStartToCreateAnEventFlow</bpmn:outgoing>
+      <bpmn:outputSet/>
+    </bpmn:startEvent>
+    <bpmn:task completionQuantity="1" id="CreateAnEvent" isForCompensation="false" name="Create Event" startQuantity="1">
+      <bpmn:incoming>TLCStartToCreateAnEventFlow</bpmn:incoming>
+      <bpmn:outgoing>CreateAnEventToStartAnEventFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task completionQuantity="1" id="StartAnEvent" isForCompensation="false" name="Start Event" startQuantity="1">
+      <bpmn:incoming>CreateAnEventToStartAnEventFlow</bpmn:incoming>
+      <bpmn:incoming>EventNotFinishedFlow</bpmn:incoming>
+      <bpmn:outgoing>StartAnEventToStopAnEventFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task completionQuantity="1" id="StopAnEvent" isForCompensation="false" name="Stop Event" startQuantity="1">
+      <bpmn:incoming>StartAnEventToStopAnEventFlow</bpmn:incoming>
+      <bpmn:outgoing>StopAnEventToIsEventFinishedFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="TLCStartToCreateAnEventFlow" sourceRef="TLCStartEvent" targetRef="CreateAnEvent"/>
+    <bpmn:sequenceFlow id="CreateAnEventToStartAnEventFlow" sourceRef="CreateAnEvent" targetRef="StartAnEvent"/>
+    <bpmn:sequenceFlow id="StartAnEventToStopAnEventFlow" sourceRef="StartAnEvent" targetRef="StopAnEvent"/>
+    <bpmn:exclusiveGateway default="EventNotFinishedFlow" gatewayDirection="Unspecified" id="IsEventFinishedGateway">
+      <bpmn:incoming>StopAnEventToIsEventFinishedFlow</bpmn:incoming>
+      <bpmn:outgoing>EventNotFinishedFlow</bpmn:outgoing>
+      <bpmn:outgoing>EventIsFinishedFlow</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="StopAnEventToIsEventFinishedFlow" sourceRef="StopAnEvent" targetRef="IsEventFinishedGateway"/>
+    <bpmn:sequenceFlow id="EventNotFinishedFlow" sourceRef="IsEventFinishedGateway" targetRef="StartAnEvent"/>
+    <bpmn:task completionQuantity="1" id="CloseAnEvent" isForCompensation="false" name="Close Event" startQuantity="1">
+      <bpmn:incoming>EventIsFinishedFlow</bpmn:incoming>
+      <bpmn:outgoing>CloseAnEventToTLCEndFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="EventIsFinishedFlow" name="event is finished" sourceRef="IsEventFinishedGateway" targetRef="CloseAnEvent"/>
+    <bpmn:endEvent id="TLCEndEvent">
+      <bpmn:incoming>CloseAnEventToTLCEndFlow</bpmn:incoming>
+      <bpmn:inputSet/>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="CloseAnEventToTLCEndFlow" sourceRef="CloseAnEvent" targetRef="TLCEndEvent"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-EventLifecycle" name="Untitled Diagram" resolution="96.0">
+    <bpmndi:BPMNPlane bpmnElement="EventLifecycle">
+      <bpmndi:BPMNShape bpmnElement="TLCStartEvent" id="Yaoqiang-TLCStartEvent">
+        <dc:Bounds height="32.0" width="32.0" x="203.0" y="205.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="218.0" y="241.58"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CreateAnEvent" id="Yaoqiang-CreateAnEvent">
+        <dc:Bounds height="80.0" width="100.0" x="322.0" y="183.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="80.0" x="332.0" y="215.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="StartAnEvent" id="Yaoqiang-StartAnEvent">
+        <dc:Bounds height="80.0" width="100.0" x="516.0" y="183.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="69.0" x="531.5" y="215.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="StopAnEvent" id="Yaoqiang-StopAnEvent">
+        <dc:Bounds height="80.0" width="100.0" x="712.0" y="183.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="67.0" x="728.5" y="215.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="IsEventFinishedGateway" id="Yaoqiang-IsEventFinishedGateway" isMarkerVisible="true">
+        <dc:Bounds height="42.0" width="42.0" x="894.0" y="198.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="951.0" y="217.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="CloseAnEvent" id="Yaoqiang-CloseAnEvent">
+        <dc:Bounds height="80.0" width="100.0" x="712.0" y="296.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="73.0" x="725.5" y="328.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TLCEndEvent" id="Yaoqiang-TLCEndEvent">
+        <dc:Bounds height="32.0" width="32.0" x="586.0" y="318.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="601.0" y="358.08"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="EventIsFinishedFlow" id="Yaoqiang-EventIsFinishedFlow">
+        <di:waypoint x="919.0" y="236.0"/>
+        <di:waypoint x="919.0" y="336.0"/>
+        <di:waypoint x="812.0" y="336.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="99.0" x="866.0" y="326.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="CreateAnEventToStartAnEventFlow" id="Yaoqiang-CreateAnEventToStartAnEventFlow">
+        <di:waypoint x="422.0" y="223.0"/>
+        <di:waypoint x="516.0" y="223.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="466.0" y="213.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="TLCStartToCreateAnEventFlow" id="Yaoqiang-TLCStartToCreateAnEventFlow">
+        <di:waypoint x="235.0" y="221.0"/>
+        <di:waypoint x="322.0" y="223.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="275.5" y="212.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="CloseAnEventToTLCEndFlow" id="Yaoqiang-CloseAnEventToTLCEndFlow">
+        <di:waypoint x="712.0" y="336.0"/>
+        <di:waypoint x="618.0" y="334.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="662.0" y="325.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="StopAnEventToIsEventFinishedFlow" id="Yaoqiang-StopAnEventToIsEventFinishedFlow">
+        <di:waypoint x="812.0" y="223.0"/>
+        <di:waypoint x="894.0" y="219.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="850.0" y="211.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="EventNotFinishedFlow" id="Yaoqiang-EventNotFinishedFlow">
+        <di:waypoint x="919.0" y="202.0"/>
+        <di:waypoint x="919.0" y="142.0"/>
+        <di:waypoint x="566.0" y="142.0"/>
+        <di:waypoint x="566.0" y="183.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="749.0" y="132.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="StartAnEventToStopAnEventFlow" id="Yaoqiang-StartAnEventToStopAnEventFlow">
+        <di:waypoint x="616.0" y="223.0"/>
+        <di:waypoint x="712.0" y="223.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="661.0" y="213.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use AppBundle\Entity\Workflow\EventLifecycleProcess;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -47,6 +48,8 @@ class EventController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
+            //$process = $this->iniciateProcess($event);
+            //$em->persist($process);
             $em->flush();
 
             return $this->redirectToRoute('event_show', array('id' => $event->getId()));
@@ -87,7 +90,11 @@ class EventController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $event = $editForm->getData();
+            //$this->changeProcess($event);
+
             $this->getDoctrine()->getManager()->flush();
+
 
             return $this->redirectToRoute('event_edit', array('id' => $event->getId()));
         }
@@ -133,5 +140,33 @@ class EventController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function getProcess(Event $event): EventLifecycleProcess
+    {
+        $em = $this->getDoctrine()->getManager();
+        $processRepo = $em->getRepository(EventLifecycleProcess::class);
+        $process = $processRepo->findOneBy(['event'=> $event]);
+
+        return $process;
+    }
+
+
+    /**
+     * @param Event $event
+     */
+    private function iniciateProcess(Event $event): EventLifecycleProcess {
+        // Содержит workflow ID (имя BPMN-файла)
+        $process = new EventLifecycleProcess();
+        $process->setEvent($event);
+
+        return $process;
+    }
+
+    private function changeProcess(Event $event) {
+        $process = $this->getProcess($event);
+
+        $this->get('app.event_lifecycle_process_usecase')->run($process, $event );
+
     }
 }
