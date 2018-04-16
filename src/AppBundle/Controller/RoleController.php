@@ -94,7 +94,7 @@ class RoleController extends Controller
 
         return $this->render('role/edit.html.twig', array(
             'role' => $role,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

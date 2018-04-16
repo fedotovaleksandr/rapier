@@ -1040,8 +1040,8 @@ if (typeof NProgress != 'undefined') {
 			});
 			$(".select2_group").select2({});
 			$(".select2_multiple").select2({
-			  maximumSelectionLength: 4,
-			  placeholder: "With Max Selection limit 4",
+			  maximumSelectionLength: 200,
+			  placeholder: "With Max Selection limit 200",
 			  allowClear: true
 			});
 			

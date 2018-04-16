@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_13pv7eg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.13.0">
+  <bpmn:process id="EventLifecycle" name="EventLifecycle" isExecutable="true">
+    <bpmn:startEvent id="TLCStartEvent">
+      <bpmn:outgoing>TLCStartToCreateAnEventFlow</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="CreateAnEvent" name="Create Event">
+      <bpmn:incoming>TLCStartToCreateAnEventFlow</bpmn:incoming>
+      <bpmn:outgoing>CreateAnEventToStartAnEventFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="StartAnEvent" name="Start Event">
+      <bpmn:incoming>CreateAnEventToStartAnEventFlow</bpmn:incoming>
+      <bpmn:incoming>EventNotFinishedFlow</bpmn:incoming>
+      <bpmn:outgoing>StartAnEventToStopAnEventFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="StopAnEvent" name="Stop Event">
+      <bpmn:incoming>StartAnEventToStopAnEventFlow</bpmn:incoming>
+      <bpmn:outgoing>StopAnEventToIsEventFinishedFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="TLCStartToCreateAnEventFlow" sourceRef="TLCStartEvent" targetRef="CreateAnEvent" />
+    <bpmn:sequenceFlow id="CreateAnEventToStartAnEventFlow" sourceRef="CreateAnEvent" targetRef="StartAnEvent" />
+    <bpmn:sequenceFlow id="StartAnEventToStopAnEventFlow" sourceRef="StartAnEvent" targetRef="StopAnEvent" />
+    <bpmn:exclusiveGateway id="IsEventFinishedGateway" default="EventNotFinishedFlow">
+      <bpmn:incoming>StopAnEventToIsEventFinishedFlow</bpmn:incoming>
+      <bpmn:outgoing>EventNotFinishedFlow</bpmn:outgoing>
+      <bpmn:outgoing>EventIsFinishedFlow</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="StopAnEventToIsEventFinishedFlow" sourceRef="StopAnEvent" targetRef="IsEventFinishedGateway" />
+    <bpmn:sequenceFlow id="EventNotFinishedFlow" name="" sourceRef="IsEventFinishedGateway" targetRef="StartAnEvent" />
+    <bpmn:task id="CloseAnEvent" name="Close Event">
+      <bpmn:incoming>EventIsFinishedFlow</bpmn:incoming>
+      <bpmn:outgoing>CloseAnEventToTLCEndFlow</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="EventIsFinishedFlow" name="event is finished" sourceRef="IsEventFinishedGateway" targetRef="CloseAnEvent" />
+    <bpmn:endEvent id="TLCEndEvent">
+      <bpmn:incoming>CloseAnEventToTLCEndFlow</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="CloseAnEventToTLCEndFlow" sourceRef="CloseAnEvent" targetRef="TLCEndEvent" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="EventLifecycle">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="TLCStartEvent">
+        <dc:Bounds x="203" y="205" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="241" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1uq2mj5_di" bpmnElement="CreateAnEvent">
+        <dc:Bounds x="322" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0vvvwaz_di" bpmnElement="StartAnEvent">
+        <dc:Bounds x="516" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0aj19pt_di" bpmnElement="StopAnEvent">
+        <dc:Bounds x="712" y="183" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ndxava_di" bpmnElement="TLCStartToCreateAnEventFlow">
+        <di:waypoint x="239" y="223" />
+        <di:waypoint x="322" y="223" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="280.5" y="202" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_08nk9kn_di" bpmnElement="CreateAnEventToStartAnEventFlow">
+        <di:waypoint x="422" y="223" />
+        <di:waypoint x="516" y="223" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="469" y="202" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1w2ve0j_di" bpmnElement="StartAnEventToStopAnEventFlow">
+        <di:waypoint x="616" y="223" />
+        <di:waypoint x="712" y="223" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="664" y="202" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0j233ox_di" bpmnElement="IsEventFinishedGateway" isMarkerVisible="true">
+        <dc:Bounds x="894" y="198" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="954" y="217" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1clgmdc_di" bpmnElement="StopAnEventToIsEventFinishedFlow">
+        <di:waypoint x="812" y="223" />
+        <di:waypoint x="894" y="223" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="853" y="202" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1x1poo0_di" bpmnElement="EventNotFinishedFlow">
+        <di:waypoint x="919" y="198" />
+        <di:waypoint x="919" y="142" />
+        <di:waypoint x="566" y="142" />
+        <di:waypoint x="566" y="183" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="704" y="121" width="78" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_15e4w7w_di" bpmnElement="CloseAnEvent">
+        <dc:Bounds x="712" y="296" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0dn5l2l_di" bpmnElement="EventIsFinishedFlow">
+        <di:waypoint x="919" y="248" />
+        <di:waypoint x="919" y="336" />
+        <di:waypoint x="812" y="336" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="836" y="266" width="78" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0wxp2lh_di" bpmnElement="TLCEndEvent">
+        <dc:Bounds x="586" y="318" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="604" y="358" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_084bh1e_di" bpmnElement="CloseAnEventToTLCEndFlow">
+        <di:waypoint x="712" y="336" />
+        <di:waypoint x="622" y="336" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="667" y="315" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

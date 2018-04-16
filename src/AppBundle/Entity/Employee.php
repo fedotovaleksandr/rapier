@@ -4,50 +4,67 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity
+ * @Serializer\ExclusionPolicy("none")
  */
 class Employee
 {
     public const WORKMODE_DEFAULT = 0;
     public const WORKMODE_CUSTOM = 1;
 
+    public const  WORKMODE_LABELS = [
+        self::WORKMODE_DEFAULT => 'Default',
+        self::WORKMODE_CUSTOM => 'Custom',
+    ];
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Type("int")
+     * @Serializer\Groups({"list"})
      */
     protected $id;
 
     /**
      * @var User
      * @ORM\OneToOne(targetEntity="User", inversedBy="employee", cascade="all")
-     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=100)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $lastName;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=100)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $firstName;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=1)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $gender;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=50)
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"list"})
      */
     protected $phone;
 
@@ -223,6 +240,14 @@ class Employee
     public function getWorkMode(): ?int
     {
         return $this->workMode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWorkModeLabel(): string
+    {
+        return self::WORKMODE_LABELS[$this->workMode];
     }
 
     /**
@@ -425,5 +450,17 @@ class Employee
     public function setEventLogs($eventLogs)
     {
         $this->eventLogs = $eventLogs;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->user ? $this->user->getEmail() : null;
+    }
+
+    public function setEmail(string $email)
+    {
+        if ($this->user) {
+            $this->user->setEmail($email);
+        }
     }
 }

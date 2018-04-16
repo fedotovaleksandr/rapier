@@ -3,18 +3,19 @@
 {% block body %}
     <h1>Events list</h1>
 
-    <table>
+    <table id="datatable" class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Startdate</th>
-                <th>Duration</th>
-                <th>Importance</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Employee</th>
+            <th>Startdate</th>
+            <th>Duration</th>
+            <th>Importance</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for event in events %}
@@ -22,19 +23,24 @@
                 <td><a href="{{ path('event_show', { 'id': event.id }) }}">{{ event.id }}</a></td>
                 <td>{{ event.title }}</td>
                 <td>{{ event.description }}</td>
+                <td>
+                    {% if event.employee %}
+                        <a class="text-primary" href="{{ path('employee_show', { 'id': event.employee.id }) }}">
+                            {{ event.employee.fullName }}
+                        </a>
+                    {% endif %}
+                </td>
                 <td>{% if event.startDate %}{{ event.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ event.duration }}</td>
-                <td>{{ event.importance }}</td>
-                <td>{{ event.status }}</td>
+                <td>{{ event.importanceLabel }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('event_show', { 'id': event.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('event_edit', { 'id': event.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {{ event.statusLabel }}
+                </td>
+                <td>
+                    <a class="btn btn-default" href="{{ path('event_show', { 'id': event.id }) }}">show</a>
+
+                    <a class="btn btn-primary" href="{{ path('event_edit', { 'id': event.id }) }}">edit</a>
+
                 </td>
             </tr>
         {% endfor %}
@@ -43,7 +49,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('event_new') }}">Create a new event</a>
+            <a class="btn btn-success" href="{{ path('event_new') }}">Create a new event</a>
         </li>
     </ul>
 {% endblock %}

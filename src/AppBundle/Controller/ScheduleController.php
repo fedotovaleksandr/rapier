@@ -94,7 +94,7 @@ class ScheduleController extends Controller
 
         return $this->render('schedule/edit.html.twig', array(
             'schedule' => $schedule,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

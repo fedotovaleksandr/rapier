@@ -16,6 +16,17 @@ class EmployeeDay
     public const FRI = 4;
     public const SAT = 5;
     public const SUN = 6;
+
+    const DAY_TITLES = [
+        self::MON => 'monday',
+        self::TUE => 'tuesday',
+        self::WED => 'wednesday',
+        self::THU => 'thursday',
+        self::FRI => 'friday',
+        self::SAT => 'saturday',
+        self::SUN => 'sunday',
+    ];
+
     private const FMT = 'H:i';
 
     /**
@@ -49,7 +60,7 @@ class EmployeeDay
     /**
      * @param int $day
      */
-    public function __construct(int $day)
+    public function __construct(int $day = null)
     {
         $this->day = $day;
     }
@@ -121,8 +132,13 @@ class EmployeeDay
     /**
      * @param \DateTimeInterface|null $endTime
      */
-    public function setEndDate(?\DateTimeInterface $endTime)
+    public function setEndTime(?\DateTimeInterface $endTime)
     {
         $this->endTime = $endTime;
+    }
+
+    public function getDayTitle()
+    {
+        return self::DAY_TITLES[$this->day];
     }
 }
