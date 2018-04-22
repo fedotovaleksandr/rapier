@@ -52,7 +52,7 @@ if c:
 
 mdx_cols = xmlamembers2list(mdx_res.getAxisTuple(axis=0))
 mdx_rows = xmlamembers2list(mdx_res.getAxisTuple(axis=1))
-mdx_data = [[x.FmtValue for x in cell] for cell in mdx_res.getSlice()]
+mdx_data = [[x.FmtValue if hasattr(x, 'FmtValue') else '0' for x in cell] for cell in mdx_res.getSlice()]
 mdx_df = pd.DataFrame(mdx_data,
     columns=mdx_cols, index=pd.Index(mdx_rows, name='ID'))
 mdx_csv_str = StringIO()

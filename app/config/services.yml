@@ -44,7 +44,13 @@ services:
             - "@security.access.decision_manager"
         tags:
             - {name: "security.voter" }
+
     app.event_lifecycle_process_usecase:
         class: AppBundle\Workflow\EventLifecycleProcessUseCase
         tags:
             - { name: phpmentors_workflower.process_aware, workflow: EventLifecycleProcess, context: app }
+
+    app.command.bpmn2workflow:
+        class: AppBundle\Command\Bpmn2WorkflowCommand
+        tags:
+            - {name: "console.command"}

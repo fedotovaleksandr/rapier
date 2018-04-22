@@ -1,7 +1,37 @@
 {% extends "base.html.twig" %}
 {% block body %}
     <h2>Welcome {{ app.user.username }} To Dashboard Rapier</h2>
+    <div id="report_table">{{ report_table }}</div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/d3.v3.min.js') }}"></script>
+    <script>
+        var reportDiv = document.getElementById('report_table');
+        var parsedCSV = d3.csv.parseRows(reportDiv.innerHTML);
+        reportDiv.innerHTML = "";
 
+        var container = d3.select("#report_table")
+            .append("table")
 
+            .selectAll("tr")
+            .data(parsedCSV).enter()
+            .append("tr")
+
+            .selectAll("td")
+            .data(function(d) { return d; }).enter()
+            .append("td")
+            .text(function(d) { return d; });
+    </script>
+{% endblock javascripts %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #report_table td {
+            border: solid;
+            border-width: 2px;
+        }
+    </style>
+{% endblock stylesheets %}
